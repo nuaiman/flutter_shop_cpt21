@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/providers/my_theme.dart';
+import 'package:provider/provider.dart';
 
 class UserScreen extends StatefulWidget {
   static const routeName = '/User-screen';
@@ -99,13 +101,23 @@ class _UserScreenState extends State<UserScreen> {
                       const _userTileText(text: 'User Settings'),
                       const _userTileHeightSpace(height: 10),
                       Card(
-                        child: SwitchListTile.adaptive(
-                          secondary: Icon(Icons.light_mode,
-                              color: Colors.amber.shade700),
-                          title: const Text('Light Mode'),
-                          value: false,
-                          onChanged: (value) {},
-                        ),
+                        child: Consumer<ThemeNotifier>(
+                            builder: (context, notifier, _) {
+                          return SwitchListTile.adaptive(
+                            secondary: notifier.isDark
+                                ? Icon(Icons.dark_mode,
+                                    color: Colors.amber.shade700)
+                                : Icon(Icons.light_mode,
+                                    color: Colors.amber.shade700),
+                            title: notifier.isDark
+                                ? const Text('Dark Mode')
+                                : const Text('Light Mode'),
+                            value: notifier.isDark,
+                            onChanged: (value) {
+                              notifier.toggleTheme(value);
+                            },
+                          );
+                        }),
                       ),
 
                       // User Information
