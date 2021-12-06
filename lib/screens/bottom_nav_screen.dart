@@ -56,7 +56,9 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.search),
         tooltip: 'Search',
-        onPressed: () {},
+        onPressed: () {
+          _onTap(2);
+        },
       ),
     );
   }
