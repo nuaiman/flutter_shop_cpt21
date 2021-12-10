@@ -54,7 +54,7 @@ class _FeedsProductState extends State<FeedsProduct> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Quantoity: 12 left',
+                  'Quantity: 12 left',
                   maxLines: 1,
                   style: TextStyle(
                     fontSize: 12,
