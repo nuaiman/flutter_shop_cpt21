@@ -22,7 +22,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
     const UserScreen(),
   ];
 
-  int _currentIndex = 4;
+  int _currentIndex = 1;
 
   _onTap(int i) {
     setState(() {
