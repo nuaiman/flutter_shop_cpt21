@@ -148,7 +148,7 @@ class _UserScreenState extends State<UserScreen> {
                       ),
                       _userListTile(
                         lIcon: Icons.watch_later,
-                        color: Colors.redAccent.shade200,
+                        color: Colors.redAccent.shade100,
                         title: 'Join Date',
                         subTitle: 'date',
                       ),
