@@ -9,8 +9,9 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List _products = [];
     return Scaffold(
-      body: FullCart(),
+      body: _products.isEmpty ? EmptyCart() : FullCart(),
     );
   }
 }

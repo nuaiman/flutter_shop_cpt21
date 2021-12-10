@@ -35,7 +35,7 @@ class EmptyCart extends StatelessWidget {
               color: Theme.of(context).unselectedWidgetColor,
             ),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 120),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             width: double.infinity,

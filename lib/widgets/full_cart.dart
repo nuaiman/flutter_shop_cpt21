@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class FullCart extends StatefulWidget {
@@ -51,7 +49,7 @@ class _FullCartState extends State<FullCart> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Flexible(
+                          const Flexible(
                             child: Text(
                               'Monitor 2',
                               overflow: TextOverflow.ellipsis,
