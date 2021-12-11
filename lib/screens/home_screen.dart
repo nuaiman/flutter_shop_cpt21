@@ -5,20 +5,25 @@ import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/widgets/back_layer.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const routeName = '/Home-screen';
 
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    List<Widget> _carouselImages = [
-      Image.asset('assets/images/carousel1.png'),
-      Image.asset('assets/images/carousel2.jpeg'),
-      Image.asset('assets/images/carousel3.jpeg'),
-      Image.asset('assets/images/carousel4.png'),
-    ];
+  State<HomeScreen> createState() => _HomeScreenState();
+}
 
+class _HomeScreenState extends State<HomeScreen> {
+  List<Widget> _carouselImages = [
+    Image.asset('assets/images/carousel1.png'),
+    Image.asset('assets/images/carousel2.jpeg'),
+    Image.asset('assets/images/carousel3.jpeg'),
+    Image.asset('assets/images/carousel4.png'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: BackdropScaffold(
         headerHeight: MediaQuery.of(context).size.height * 0.2,
