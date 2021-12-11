@@ -4,6 +4,7 @@ import 'package:backdrop/scaffold.dart';
 import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/widgets/back_layer.dart';
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/Home-screen';
@@ -15,11 +16,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Widget> _carouselImages = [
+  final List<Widget> _carouselImages = [
     Image.asset('assets/images/carousel1.png'),
     Image.asset('assets/images/carousel2.jpeg'),
     Image.asset('assets/images/carousel3.jpeg'),
     Image.asset('assets/images/carousel4.png'),
+  ];
+
+  final List _swiperImages = [
+    'assets/images/addidas.jpeg',
+    'assets/images/apple.jpeg',
+    'assets/images/Dell.jpeg',
+    'assets/images/h&m.jpeg',
+    'assets/images/Huawei.jpeg',
+    'assets/images/nike.jpeg',
+    'assets/images/samsung.jpeg',
   ];
 
   @override
@@ -51,17 +62,51 @@ class _HomeScreenState extends State<HomeScreen> {
         backLayer: const BackLayer(),
         frontLayer: ListView(
           children: [
-            Container(
+            SizedBox(
               height: 200,
               width: double.infinity,
               child: Carousel(
                 images: _carouselImages,
-                autoplay: true,
-                animationDuration: Duration(seconds: 5),
-                animationCurve: Curves.fastOutSlowIn,
                 indicatorBgPadding: 7,
                 dotSize: 5,
                 boxFit: BoxFit.fill,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Popular Brands',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                  TextButton(onPressed: () {}, child: const Text('view all')),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            Container(
+              height: 200,
+              width: double.infinity,
+              child: Swiper(
+                autoplay: true,
+                viewportFraction: 0.8,
+                scale: 0.9,
+                itemCount: _swiperImages.length,
+                itemBuilder: (ctx, i) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 2, color: Colors.grey),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Image.asset(
+                      _swiperImages[i],
+                      fit: BoxFit.contain,
+                    ),
+                  );
+                },
               ),
             ),
           ],
