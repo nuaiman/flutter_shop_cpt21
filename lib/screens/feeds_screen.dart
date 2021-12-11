@@ -23,7 +23,7 @@ class FeedsScreen extends StatelessWidget {
             mainAxisSpacing: 10,
           ),
           itemBuilder: (ctx, i) {
-            return FeedsProduct();
+            return const FeedsProduct();
           },
         ),
       ),

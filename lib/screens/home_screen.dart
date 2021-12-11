@@ -2,8 +2,11 @@ import 'package:backdrop/app_bar.dart';
 import 'package:backdrop/button.dart';
 import 'package:backdrop/scaffold.dart';
 import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/widgets/back_layer.dart';
+import 'package:flutter_shop_cpt21/widgets/category.dart';
+
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -75,6 +78,32 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: const Text(
+                'Categories',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Container(
+              height: 200,
+              width: double.infinity,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 7,
+                itemBuilder: (ctx, i) {
+                  return Row(
+                    children: [
+                      Category(
+                        i: i,
+                      ),
+                      const SizedBox(width: 10),
+                    ],
+                  );
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -86,8 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            Container(
+            SizedBox(
               height: 200,
               width: double.infinity,
               child: Swiper(
@@ -103,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     child: Image.asset(
                       _swiperImages[i],
-                      fit: BoxFit.contain,
+                      fit: BoxFit.fill,
                     ),
                   );
                 },
