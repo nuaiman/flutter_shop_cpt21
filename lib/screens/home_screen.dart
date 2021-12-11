@@ -1,8 +1,8 @@
 import 'package:backdrop/app_bar.dart';
 import 'package:backdrop/button.dart';
 import 'package:backdrop/scaffold.dart';
-import 'package:backdrop/sub_header.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/widgets/back_layer.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/Home-screen';
@@ -13,6 +13,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BackdropScaffold(
+        headerHeight: MediaQuery.of(context).size.height * 0.2,
+        backLayerBackgroundColor: Colors.grey.shade900,
         appBar: BackdropAppBar(
           title: Text('Flutter Shop'),
           leading: BackdropToggleButton(
@@ -21,7 +23,7 @@ class HomeScreen extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {},
-              icon: CircleAvatar(
+              icon: const CircleAvatar(
                 backgroundColor: Colors.white,
                 child: CircleAvatar(
                   radius: 14,
@@ -33,9 +35,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-        backLayer: Center(
-          child: Text("Back Layer"),
-        ),
+        backLayer: BackLayer(),
         frontLayer: Center(
           child: Text("Front Layer"),
         ),
