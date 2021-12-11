@@ -6,6 +6,7 @@ import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/widgets/back_layer.dart';
 import 'package:flutter_shop_cpt21/widgets/category.dart';
+import 'package:flutter_shop_cpt21/widgets/popular_propducts.dart';
 
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
@@ -134,6 +135,30 @@ class _HomeScreenState extends State<HomeScreen> {
                       fit: BoxFit.fill,
                     ),
                   );
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Popular Products',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                  TextButton(onPressed: () {}, child: const Text('view all')),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 300,
+              width: double.infinity,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 30,
+                itemBuilder: (ctx, i) {
+                  return PopularProducts();
                 },
               ),
             ),

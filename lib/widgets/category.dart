@@ -55,7 +55,10 @@ class Category extends StatelessWidget {
             height: 150,
             width: 150,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12),
+                topRight: Radius.circular(12),
+              ),
               child: Image.asset(
                 (_categories[i]['catImage']).toString(),
                 fit: BoxFit.cover,
