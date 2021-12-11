@@ -39,7 +39,7 @@ class _FeedsProductState extends State<FeedsProduct> {
                 Text(
                   'Description',
                   maxLines: 1,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -48,7 +48,7 @@ class _FeedsProductState extends State<FeedsProduct> {
                 Text(
                   '\$ 299.99',
                   maxLines: 1,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w800,
                     overflow: TextOverflow.ellipsis,
@@ -61,7 +61,7 @@ class _FeedsProductState extends State<FeedsProduct> {
                     Text(
                       'Quantity: 12 left',
                       maxLines: 1,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 12,
                         color: Colors.grey,
                         overflow: TextOverflow.ellipsis,

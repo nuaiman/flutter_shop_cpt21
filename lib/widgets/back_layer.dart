@@ -7,11 +7,11 @@ class BackLayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        _roatedBox(
+        const _roatedBox(
           top: -100,
           left: -28,
         ),
-        _roatedBox(
+        const _roatedBox(
           top: -100,
           left: 200,
         ),
@@ -73,6 +73,7 @@ class BackLayer extends StatelessWidget {
   }
 }
 
+// ignore: camel_case_types
 class _roatedBox extends StatelessWidget {
   final double top;
   final double left;
@@ -102,6 +103,7 @@ class _roatedBox extends StatelessWidget {
   }
 }
 
+// ignore: camel_case_types
 class _backLayerButton extends StatelessWidget {
   final String title;
   final IconData icon;

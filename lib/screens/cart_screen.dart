@@ -11,7 +11,7 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List _products = [];
     return !_products.isEmpty
-        ? Scaffold(
+        ? const Scaffold(
             body: EmptyCart(),
           )
         : Scaffold(
@@ -25,7 +25,7 @@ class CartScreen extends StatelessWidget {
               ],
             ),
             body: Container(
-              margin: EdgeInsets.only(bottom: 60),
+              margin: const EdgeInsets.only(bottom: 60),
               child: ListView.builder(
                 itemCount: 10,
                 itemBuilder: (ctx, i) {
@@ -49,7 +49,7 @@ Widget _bottomCheckoutSectiomn() {
           Expanded(
             child: Text(
               'Total: \$ 450.00',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
               ),
               overflow: TextOverflow.ellipsis,
@@ -59,7 +59,7 @@ Widget _bottomCheckoutSectiomn() {
             onPressed: () {},
             child: Text(
               '   C H E C K O U T   ',
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
               ),
             ),
