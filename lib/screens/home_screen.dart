@@ -4,6 +4,7 @@ import 'package:backdrop/scaffold.dart';
 import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/screens/inner_screens/brands_nav_rail.dart';
+import 'package:flutter_shop_cpt21/screens/wishlist_screen.dart';
 import 'package:flutter_shop_cpt21/widgets/back_layer.dart';
 import 'package:flutter_shop_cpt21/widgets/category.dart';
 import 'package:flutter_shop_cpt21/widgets/popular_propducts.dart';
@@ -48,6 +49,12 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: AnimatedIcons.home_menu,
           ),
           actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(WishlistScreen.routeName);
+              },
+              icon: const Icon(Icons.favorite),
+            ),
             IconButton(
               onPressed: () {},
               icon: const CircleAvatar(

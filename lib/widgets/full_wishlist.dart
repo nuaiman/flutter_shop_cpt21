@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class FullCart extends StatefulWidget {
-  const FullCart({Key? key}) : super(key: key);
+class FullWishlist extends StatefulWidget {
+  const FullWishlist({Key? key}) : super(key: key);
 
   @override
-  _FullCartState createState() => _FullCartState();
+  State<FullWishlist> createState() => _FullWishlistState();
 }
 
-class _FullCartState extends State<FullCart> {
+class _FullWishlistState extends State<FullWishlist> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,6 +39,7 @@ class _FullCartState extends State<FullCart> {
             const SizedBox(width: 10),
             Flexible(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 10),
                   Row(
@@ -79,58 +80,14 @@ class _FullCartState extends State<FullCart> {
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      const Text(
-                        'SubTotal : ',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      Flexible(
-                        child: Text(
-                          '\$450.00',
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text(
-                        'Shipping : ',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      Flexible(
-                        child: Text(
-                          '\$450.00',
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          '-',
-                          style: TextStyle(fontSize: 25),
-                        ),
-                      ),
-                      Text(
-                        '1',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          '+',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                    ],
+                  const SizedBox(height: 10),
+                  Flexible(
+                    child: Text(
+                      'Description',
+                      maxLines: 4,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ),
                 ],
               ),

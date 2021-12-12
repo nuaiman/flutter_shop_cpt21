@@ -7,6 +7,7 @@ import 'package:flutter_shop_cpt21/screens/home_screen.dart';
 import 'package:flutter_shop_cpt21/screens/inner_screens/brands_nav_rail.dart';
 import 'package:flutter_shop_cpt21/screens/search_screen.dart';
 import 'package:flutter_shop_cpt21/screens/user_scren.dart';
+import 'package:flutter_shop_cpt21/screens/wishlist_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
             CartScreen.routeName: (ctx) => const CartScreen(),
             UserScreen.routeName: (ctx) => const UserScreen(),
             BrandsNavRailScreen.routeName: (ctx) => const BrandsNavRailScreen(),
+            WishlistScreen.routeName: (ctx) => WishlistScreen(),
           },
         );
       }),

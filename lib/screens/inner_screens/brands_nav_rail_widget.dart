@@ -25,7 +25,7 @@ class BrandNavRailWidget extends StatelessWidget {
                     height: 190,
                     width: double.infinity,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(12),
                         topRight: Radius.circular(12),
                       ),
