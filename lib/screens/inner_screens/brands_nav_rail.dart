@@ -24,32 +24,32 @@ class _BrandsNavRailScreenState extends State<BrandsNavRailScreen> {
         brands = 'Addidas';
       });
     }
-    if (_selectedIndex == 0) {
+    if (_selectedIndex == 1) {
       setState(() {
         brands = 'Apple';
       });
     }
-    if (_selectedIndex == 0) {
+    if (_selectedIndex == 2) {
       setState(() {
         brands = 'Dell';
       });
     }
-    if (_selectedIndex == 0) {
+    if (_selectedIndex == 3) {
       setState(() {
         brands = 'H&M';
       });
     }
-    if (_selectedIndex == 0) {
+    if (_selectedIndex == 4) {
       setState(() {
         brands = 'Huawei';
       });
     }
-    if (_selectedIndex == 0) {
+    if (_selectedIndex == 5) {
       setState(() {
         brands = 'Nike';
       });
     }
-    if (_selectedIndex == 0) {
+    if (_selectedIndex == 6) {
       setState(() {
         brands = 'Samsung';
       });
@@ -87,6 +87,46 @@ class _BrandsNavRailScreenState extends State<BrandsNavRailScreen> {
                       onDestinationSelected: (index) {
                         setState(() {
                           _selectedIndex = index;
+                          if (_selectedIndex == 0) {
+                            setState(() {
+                              brands = 'Addidas';
+                            });
+                          }
+                          if (_selectedIndex == 1) {
+                            setState(() {
+                              brands = 'Apple';
+                            });
+                          }
+                          if (_selectedIndex == 2) {
+                            setState(() {
+                              brands = 'Dell';
+                            });
+                          }
+                          if (_selectedIndex == 3) {
+                            setState(() {
+                              brands = 'H&M';
+                            });
+                          }
+                          if (_selectedIndex == 4) {
+                            setState(() {
+                              brands = 'Huawei';
+                            });
+                          }
+                          if (_selectedIndex == 5) {
+                            setState(() {
+                              brands = 'Nike';
+                            });
+                          }
+                          if (_selectedIndex == 6) {
+                            setState(() {
+                              brands = 'Samsung';
+                            });
+                          }
+                          // if (_selectedIndex == 7) {
+                          //   setState(() {
+                          //     brands = 'All';
+                          //   });
+                          // }
                         });
                       },
                       destinations: [

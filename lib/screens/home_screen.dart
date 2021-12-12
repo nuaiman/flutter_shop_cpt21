@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 8),
-            Container(
+            SizedBox(
               height: 200,
               width: double.infinity,
               child: ListView.builder(
@@ -111,7 +111,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     'Popular Brands',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
-                  TextButton(onPressed: () {}, child: const Text('view all')),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(
+                          BrandsNavRailScreen.routeName,
+                          arguments: 7,
+                        );
+                      },
+                      child: const Text('view all')),
                 ],
               ),
             ),
