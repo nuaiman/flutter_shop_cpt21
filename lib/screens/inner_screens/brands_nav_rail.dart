@@ -69,6 +69,11 @@ class _BrandsNavRailScreenState extends State<BrandsNavRailScreen> {
                   constraints: BoxConstraints(minHeight: cons.maxHeight),
                   child: IntrinsicHeight(
                     child: NavigationRail(
+                      selectedLabelTextStyle: TextStyle(
+                        letterSpacing: 2.5,
+                        fontSize: 25,
+                        decoration: TextDecoration.underline,
+                      ),
                       leading: Padding(
                         padding: const EdgeInsets.only(top: 50.0),
                         child: CircleAvatar(
