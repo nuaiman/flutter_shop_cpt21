@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/screens/inner_screens/brands_nav_rail_widget.dart';
 
 class BrandsNavRailScreen extends StatefulWidget {
   static const routeName = '/brands-nav-rail';
@@ -54,6 +55,11 @@ class _BrandsNavRailScreenState extends State<BrandsNavRailScreen> {
         brands = 'Samsung';
       });
     }
+    if (_selectedIndex == 7) {
+      setState(() {
+        brands = 'All';
+      });
+    }
     super.didChangeDependencies();
   }
 
@@ -69,13 +75,14 @@ class _BrandsNavRailScreenState extends State<BrandsNavRailScreen> {
                   constraints: BoxConstraints(minHeight: cons.maxHeight),
                   child: IntrinsicHeight(
                     child: NavigationRail(
-                      selectedLabelTextStyle: TextStyle(
+                      minWidth: 50,
+                      selectedLabelTextStyle: const TextStyle(
                         letterSpacing: 2.5,
                         fontSize: 25,
                         decoration: TextDecoration.underline,
                       ),
-                      leading: Padding(
-                        padding: const EdgeInsets.only(top: 50.0),
+                      leading: const Padding(
+                        padding: EdgeInsets.only(top: 50.0),
                         child: CircleAvatar(
                           backgroundImage: NetworkImage(
                             'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg',
@@ -122,70 +129,22 @@ class _BrandsNavRailScreenState extends State<BrandsNavRailScreen> {
                               brands = 'Samsung';
                             });
                           }
-                          // if (_selectedIndex == 7) {
-                          //   setState(() {
-                          //     brands = 'All';
-                          //   });
-                          // }
+                          if (_selectedIndex == 7) {
+                            setState(() {
+                              brands = 'All';
+                            });
+                          }
                         });
                       },
                       destinations: [
-                        NavigationRailDestination(
-                          icon: Icon(null),
-                          label: RotatedBox(
-                            quarterTurns: 3,
-                            child: Text('Addidas'),
-                          ),
-                        ),
-                        NavigationRailDestination(
-                          icon: Icon(null),
-                          label: RotatedBox(
-                            quarterTurns: 3,
-                            child: Text('Apple'),
-                          ),
-                        ),
-                        NavigationRailDestination(
-                          icon: Icon(null),
-                          label: RotatedBox(
-                            quarterTurns: 3,
-                            child: Text('Dell'),
-                          ),
-                        ),
-                        NavigationRailDestination(
-                          icon: Icon(null),
-                          label: RotatedBox(
-                            quarterTurns: 3,
-                            child: Text('H&M'),
-                          ),
-                        ),
-                        NavigationRailDestination(
-                          icon: Icon(null),
-                          label: RotatedBox(
-                            quarterTurns: 3,
-                            child: Text('Huawei'),
-                          ),
-                        ),
-                        NavigationRailDestination(
-                          icon: Icon(null),
-                          label: RotatedBox(
-                            quarterTurns: 3,
-                            child: Text('Nike'),
-                          ),
-                        ),
-                        NavigationRailDestination(
-                          icon: Icon(null),
-                          label: RotatedBox(
-                            quarterTurns: 3,
-                            child: Text('Samsung'),
-                          ),
-                        ),
-                        NavigationRailDestination(
-                          icon: Icon(null),
-                          label: RotatedBox(
-                            quarterTurns: 3,
-                            child: Text('All'),
-                          ),
-                        ),
+                        _navRailRoatedBox('Addidas'),
+                        _navRailRoatedBox('Apple'),
+                        _navRailRoatedBox('Dell'),
+                        _navRailRoatedBox('H&M'),
+                        _navRailRoatedBox('Huawei'),
+                        _navRailRoatedBox('Nike'),
+                        _navRailRoatedBox('Samsung'),
+                        _navRailRoatedBox('All'),
                       ],
                     ),
                   ),
@@ -193,7 +152,49 @@ class _BrandsNavRailScreenState extends State<BrandsNavRailScreen> {
               );
             },
           ),
+          ContentSpace(brand: brands),
         ],
+      ),
+    );
+  }
+
+  NavigationRailDestination _navRailRoatedBox(String text) {
+    return NavigationRailDestination(
+      icon: const Icon(null),
+      label: RotatedBox(
+        quarterTurns: 3,
+        child: Text(text),
+      ),
+    );
+  }
+}
+
+class ContentSpace extends StatelessWidget {
+  final String brand;
+
+  const ContentSpace({
+    required this.brand,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(24, 0, 0, 0),
+        child: MediaQuery.removePadding(
+          context: context,
+          removeTop: true,
+          child: Container(
+            margin: const EdgeInsets.only(top: 50),
+            child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (ctx, i) {
+                return BrandNavRailWidget();
+              },
+            ),
+          ),
+        ),
       ),
     );
   }
