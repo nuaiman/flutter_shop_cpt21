@@ -4,6 +4,7 @@ import 'package:flutter_shop_cpt21/screens/bottom_nav_screen.dart';
 import 'package:flutter_shop_cpt21/screens/cart_screen.dart';
 import 'package:flutter_shop_cpt21/screens/feeds_screen.dart';
 import 'package:flutter_shop_cpt21/screens/home_screen.dart';
+import 'package:flutter_shop_cpt21/screens/inner_screens/brands_nav_rail.dart';
 import 'package:flutter_shop_cpt21/screens/search_screen.dart';
 import 'package:flutter_shop_cpt21/screens/user_scren.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
             SearchScreen.routeName: (ctx) => const SearchScreen(),
             CartScreen.routeName: (ctx) => const CartScreen(),
             UserScreen.routeName: (ctx) => const UserScreen(),
+            BrandsNavRailScreen.routeName: (ctx) => const BrandsNavRailScreen(),
           },
         );
       }),

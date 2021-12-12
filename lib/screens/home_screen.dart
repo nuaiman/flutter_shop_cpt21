@@ -2,12 +2,11 @@ import 'package:backdrop/app_bar.dart';
 import 'package:backdrop/button.dart';
 import 'package:backdrop/scaffold.dart';
 import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/screens/inner_screens/brands_nav_rail.dart';
 import 'package:flutter_shop_cpt21/widgets/back_layer.dart';
 import 'package:flutter_shop_cpt21/widgets/category.dart';
 import 'package:flutter_shop_cpt21/widgets/popular_propducts.dart';
-
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -77,9 +76,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: const Text(
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
                 'Categories',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
               ),
@@ -120,6 +119,12 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 200,
               width: double.infinity,
               child: Swiper(
+                onTap: (index) {
+                  Navigator.of(context).pushNamed(
+                    BrandsNavRailScreen.routeName,
+                    arguments: index,
+                  );
+                },
                 autoplay: true,
                 viewportFraction: 0.8,
                 scale: 0.9,
@@ -158,7 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 itemCount: 30,
                 itemBuilder: (ctx, i) {
-                  return PopularProducts();
+                  return const PopularProducts();
                 },
               ),
             ),
