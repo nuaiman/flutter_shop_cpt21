@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BackdropScaffold(
-        headerHeight: MediaQuery.of(context).size.height * 0.2,
+        headerHeight: MediaQuery.of(context).size.height * 0.4,
         backLayerBackgroundColor: Colors.grey.shade900,
         appBar: BackdropAppBar(
           title: const Text('Flutter Shop'),

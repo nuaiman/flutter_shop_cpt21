@@ -35,31 +35,6 @@ class BackLayer extends StatelessWidget {
                 ),
                 const SizedBox(height: 40),
                 _backLayerButton(
-                  title: 'Home Screen',
-                  icon: Icons.home,
-                  onPressed: () {},
-                ),
-                _backLayerButton(
-                  title: 'Feeds Screen',
-                  icon: Icons.rss_feed,
-                  onPressed: () {},
-                ),
-                _backLayerButton(
-                  title: 'Search Screen',
-                  icon: Icons.search,
-                  onPressed: () {},
-                ),
-                _backLayerButton(
-                  title: 'Cart Screen',
-                  icon: Icons.shopping_bag,
-                  onPressed: () {},
-                ),
-                _backLayerButton(
-                  title: 'User Screen',
-                  icon: Icons.person,
-                  onPressed: () {},
-                ),
-                _backLayerButton(
                   title: 'Upload A Product',
                   icon: Icons.upload,
                   onPressed: () {},
