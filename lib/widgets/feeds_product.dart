@@ -3,7 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/screens/inner_screens/product_details_screen.dart';
 
 class FeedsProduct extends StatefulWidget {
-  const FeedsProduct({Key? key}) : super(key: key);
+  final String id;
+  final String description;
+  final double price;
+  final String imageUrl;
+  final int quantity;
+  final bool isFavorite;
+  const FeedsProduct({
+    Key? key,
+    required this.id,
+    required this.description,
+    required this.imageUrl,
+    required this.price,
+    required this.isFavorite,
+    required this.quantity,
+  }) : super(key: key);
 
   @override
   _FeedsProductState createState() => _FeedsProductState();
@@ -35,14 +49,13 @@ class _FeedsProductState extends State<FeedsProduct> {
                           minHeight: 170,
                           maxHeight: MediaQuery.of(context).size.height * 0.21),
                       child: Center(
-                        child: Image.network(
-                            'https://images.pexels.com/photos/6612384/pexels-photo-6612384.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260'),
+                        child: Image.network(widget.imageUrl),
                       ),
                     ),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Description',
+                    widget.description,
                     maxLines: 1,
                     style: const TextStyle(
                       fontSize: 18,
@@ -51,7 +64,7 @@ class _FeedsProductState extends State<FeedsProduct> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '\$ 299.99',
+                    '\$ ${widget.price}',
                     maxLines: 1,
                     style: const TextStyle(
                       fontSize: 16,
@@ -64,7 +77,7 @@ class _FeedsProductState extends State<FeedsProduct> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Quantity: 12 left',
+                        'Quantity: ${widget.quantity} left',
                         maxLines: 1,
                         style: const TextStyle(
                           fontSize: 12,

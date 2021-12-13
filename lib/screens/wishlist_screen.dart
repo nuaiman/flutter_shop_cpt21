@@ -25,7 +25,6 @@ class WishlistScreen extends StatelessWidget {
               ],
             ),
             body: Container(
-              margin: const EdgeInsets.only(bottom: 60),
               child: ListView.builder(
                 itemCount: 10,
                 itemBuilder: (ctx, i) {

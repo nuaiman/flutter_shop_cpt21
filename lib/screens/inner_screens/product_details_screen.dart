@@ -200,21 +200,21 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 30),
-                  width: double.infinity,
-                  height: 300,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 7,
-                    itemBuilder: (ctx, i) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FeedsProduct(),
-                      );
-                    },
-                  ),
-                ),
+                // Container(
+                //   margin: const EdgeInsets.only(bottom: 30),
+                //   width: double.infinity,
+                //   height: 300,
+                //   child: ListView.builder(
+                //     scrollDirection: Axis.horizontal,
+                //     itemCount: 7,
+                //     itemBuilder: (ctx, i) {
+                //       return Padding(
+                //         padding: const EdgeInsets.all(8.0),
+                //         child: FeedsProduct(),
+                //       );
+                //     },
+                //   ),
+                // ),
               ],
             ),
           ),
