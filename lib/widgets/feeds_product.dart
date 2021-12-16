@@ -1,24 +1,10 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/screens/inner_screens/product_details_screen.dart';
+import 'package:provider/provider.dart';
 
 class FeedsProduct extends StatefulWidget {
-  final String id;
-  final String description;
-  final double price;
-  final String imageUrl;
-  final int quantity;
-  final bool isFavorite;
-  const FeedsProduct({
-    Key? key,
-    required this.id,
-    required this.description,
-    required this.imageUrl,
-    required this.price,
-    required this.isFavorite,
-    required this.quantity,
-  }) : super(key: key);
-
   @override
   _FeedsProductState createState() => _FeedsProductState();
 }
@@ -26,6 +12,7 @@ class FeedsProduct extends StatefulWidget {
 class _FeedsProductState extends State<FeedsProduct> {
   @override
   Widget build(BuildContext context) {
+    final productAttribute = Provider.of<Product>(context);
     return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed(ProductDetailsScreen.routeName);
@@ -49,13 +36,13 @@ class _FeedsProductState extends State<FeedsProduct> {
                           minHeight: 170,
                           maxHeight: MediaQuery.of(context).size.height * 0.21),
                       child: Center(
-                        child: Image.network(widget.imageUrl),
+                        child: Image.network(productAttribute.imageUrl),
                       ),
                     ),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    widget.description,
+                    productAttribute.description,
                     maxLines: 1,
                     style: const TextStyle(
                       fontSize: 18,
@@ -64,7 +51,7 @@ class _FeedsProductState extends State<FeedsProduct> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '\$ ${widget.price}',
+                    '\$ ${productAttribute.price}',
                     maxLines: 1,
                     style: const TextStyle(
                       fontSize: 16,
@@ -77,7 +64,7 @@ class _FeedsProductState extends State<FeedsProduct> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Quantity: ${widget.quantity} left',
+                        'Quantity: ${productAttribute.quantity} left',
                         maxLines: 1,
                         style: const TextStyle(
                           fontSize: 12,

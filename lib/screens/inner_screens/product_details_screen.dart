@@ -217,13 +217,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         padding: const EdgeInsets.all(8.0),
                         child: SizedBox(
                           width: 200,
-                          child: FeedsProduct(
-                            id: productsList[i].id,
-                            description: productsList[i].description,
-                            imageUrl: productsList[i].imageUrl,
-                            isFavorite: productsList[i].isFavorite,
-                            price: productsList[i].price,
-                            quantity: productsList[i].quantity,
+                          child: ChangeNotifierProvider.value(
+                            value: productsList[i],
+                            child: FeedsProduct(),
                           ),
                         ),
                       );

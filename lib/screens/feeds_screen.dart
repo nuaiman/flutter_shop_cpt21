@@ -28,13 +28,9 @@ class FeedsScreen extends StatelessWidget {
             mainAxisSpacing: 10,
           ),
           itemBuilder: (ctx, i) {
-            return FeedsProduct(
-              id: productsList[i].id,
-              description: productsList[i].description,
-              imageUrl: productsList[i].imageUrl,
-              isFavorite: productsList[i].isFavorite,
-              price: productsList[i].price,
-              quantity: productsList[i].quantity,
+            return ChangeNotifierProvider.value(
+              value: productsList[i],
+              child: FeedsProduct(),
             );
           },
         ),
