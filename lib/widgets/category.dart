@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Category extends StatelessWidget {
+class Category extends StatefulWidget {
   late int i;
 
   Category({
@@ -8,6 +8,11 @@ class Category extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<Category> createState() => _CategoryState();
+}
+
+class _CategoryState extends State<Category> {
   List<Map<String, Object>> _categories = [
     {
       'catName': 'Phones',
@@ -41,36 +46,41 @@ class Category extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 200,
-      width: 150,
-      decoration: BoxDecoration(
-        border: Border.all(width: 2, color: Colors.grey),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 150,
-            width: 150,
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-              ),
-              child: Image.asset(
-                (_categories[i]['catImage']).toString(),
-                fit: BoxFit.cover,
+    return InkWell(
+      onTap: () {
+        print('${_categories[widget.i]['catName']}');
+      },
+      child: Container(
+        height: 200,
+        width: 150,
+        decoration: BoxDecoration(
+          border: Border.all(width: 2, color: Colors.grey),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 150,
+              width: 150,
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
+                ),
+                child: Image.asset(
+                  (_categories[widget.i]['catImage']).toString(),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            ' ${(_categories[i]['catName']).toString()}',
-            style: const TextStyle(fontSize: 20),
-          ),
-        ],
+            const SizedBox(height: 10),
+            Text(
+              ' ${(_categories[widget.i]['catName']).toString()}',
+              style: const TextStyle(fontSize: 20),
+            ),
+          ],
+        ),
       ),
     );
   }

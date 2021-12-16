@@ -10,7 +10,6 @@ import 'package:flutter_shop_cpt21/screens/search_screen.dart';
 import 'package:flutter_shop_cpt21/screens/user_scren.dart';
 import 'package:flutter_shop_cpt21/screens/wishlist_screen.dart';
 import 'package:provider/provider.dart';
-
 import 'models & providers/my_theme.dart';
 
 void main() {
