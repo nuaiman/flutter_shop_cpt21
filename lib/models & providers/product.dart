@@ -409,4 +409,8 @@ class ProductProvider with ChangeNotifier {
         .toList();
     return catList;
   }
+
+  List<Product> get popularProducts {
+    return _products.where((element) => element.isPopular).toList();
+  }
 }

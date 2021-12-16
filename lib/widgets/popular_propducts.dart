@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
+import 'package:provider/provider.dart';
 
 class PopularProducts extends StatelessWidget {
   const PopularProducts({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final productAttrribute = Provider.of<Product>(context);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -28,7 +32,7 @@ class PopularProducts extends StatelessWidget {
                       topRight: Radius.circular(12),
                     ),
                     child: Image.network(
-                      'https://images.pexels.com/photos/4600998/pexels-photo-4600998.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+                      productAttrribute.imageUrl,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -48,7 +52,7 @@ class PopularProducts extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Text(
-                        '\$ 250.00',
+                        '\$ ${productAttrribute.price}',
                         style: TextStyle(fontSize: 16),
                       ),
                     ),
@@ -60,7 +64,7 @@ class PopularProducts extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
-                ' Name',
+                ' ${productAttrribute.title}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(fontSize: 20),
@@ -74,10 +78,10 @@ class PopularProducts extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Text(
-                      ' Description ',
+                      ' ${productAttrribute.description} ',
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 18),
                     ),
                   ),
                   InkWell(

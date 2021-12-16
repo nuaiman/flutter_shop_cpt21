@@ -3,12 +3,14 @@ import 'package:backdrop/button.dart';
 import 'package:backdrop/scaffold.dart';
 import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/screens/inner_screens/brands_nav_rail.dart';
 import 'package:flutter_shop_cpt21/screens/wishlist_screen.dart';
 import 'package:flutter_shop_cpt21/widgets/back_layer.dart';
 import 'package:flutter_shop_cpt21/widgets/category.dart';
 import 'package:flutter_shop_cpt21/widgets/popular_propducts.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/Home-screen';
@@ -39,6 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final productData = Provider.of<ProductProvider>(context);
+    final popularProduct = productData.popularProducts;
+
     return Scaffold(
       body: BackdropScaffold(
         headerHeight: MediaQuery.of(context).size.height * 0.4,
@@ -176,9 +181,12 @@ class _HomeScreenState extends State<HomeScreen> {
               width: double.infinity,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 30,
+                itemCount: popularProduct.length,
                 itemBuilder: (ctx, i) {
-                  return const PopularProducts();
+                  return ChangeNotifierProvider.value(
+                    value: popularProduct[i],
+                    child: const PopularProducts(),
+                  );
                 },
               ),
             ),
