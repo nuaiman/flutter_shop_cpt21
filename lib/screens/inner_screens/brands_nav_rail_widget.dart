@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
+import 'package:flutter_shop_cpt21/screens/inner_screens/product_details_screen.dart';
 import 'package:provider/provider.dart';
 
 class BrandNavRailWidget extends StatelessWidget {
@@ -10,7 +11,12 @@ class BrandNavRailWidget extends StatelessWidget {
     final productAttribute = Provider.of<Product>(context, listen: false);
 
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed(
+          ProductDetailsScreen.routeName,
+          arguments: productAttribute.id,
+        );
+      },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(

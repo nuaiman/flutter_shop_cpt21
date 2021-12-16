@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
+import 'package:flutter_shop_cpt21/screens/inner_screens/product_details_screen.dart';
 import 'package:provider/provider.dart';
 
 class PopularProducts extends StatelessWidget {
@@ -23,17 +24,25 @@ class PopularProducts extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Container(
+                SizedBox(
                   height: 190,
                   width: 250,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
-                    ),
-                    child: Image.network(
-                      productAttrribute.imageUrl,
-                      fit: BoxFit.cover,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        ProductDetailsScreen.routeName,
+                        arguments: productAttrribute.id,
+                      );
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(12),
+                        topRight: Radius.circular(12),
+                      ),
+                      child: Image.network(
+                        productAttrribute.imageUrl,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),

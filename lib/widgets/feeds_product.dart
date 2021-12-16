@@ -15,7 +15,10 @@ class _FeedsProductState extends State<FeedsProduct> {
     final productAttribute = Provider.of<Product>(context);
     return InkWell(
       onTap: () {
-        Navigator.of(context).pushNamed(ProductDetailsScreen.routeName);
+        Navigator.of(context).pushNamed(
+          ProductDetailsScreen.routeName,
+          arguments: productAttribute.id,
+        );
       },
       child: Stack(
         children: [

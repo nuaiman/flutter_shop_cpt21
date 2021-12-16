@@ -20,8 +20,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final productId = ModalRoute.of(context)!.settings.arguments as String;
+
     final productProvider = Provider.of<ProductProvider>(context);
     List<Product> productsList = productProvider.products();
+
+    final product = productProvider.getById(productId);
 
     return Scaffold(
       bottomSheet: _bottomSheet(),
@@ -48,8 +52,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             foregroundDecoration: BoxDecoration(color: Colors.black12),
             height: MediaQuery.of(context).size.height * 0.45,
             width: double.infinity,
-            child: Image.network(
-                'https://images.pexels.com/photos/4600998/pexels-photo-4600998.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'),
+            child: Image.network(product.imageUrl),
           ),
           SingleChildScrollView(
             padding: const EdgeInsets.symmetric(vertical: 20),
@@ -86,7 +89,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             Container(
                               width: MediaQuery.of(context).size.width * 0.9,
                               child: Text(
-                                'Title',
+                                '${product.title}',
                                 style: TextStyle(
                                   fontSize: 28,
                                   fontWeight: FontWeight.w600,
@@ -95,7 +98,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             ),
                             const SizedBox(height: 6),
                             Text(
-                              '\$ 250.00',
+                              '\$ ${product.price}',
                               style: TextStyle(
                                 fontSize: 21,
                                 color: Colors.purple,
@@ -118,7 +121,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       Padding(
                         padding: const EdgeInsets.all(16),
                         child: Text(
-                          'Description',
+                          '${product.description}',
                           style: TextStyle(
                             fontSize: 21,
                             fontWeight: FontWeight.w600,
@@ -136,19 +139,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                       _contentRow(
                         title: 'Brand',
-                        nameTitle: 'Brand Name',
+                        nameTitle: '${product.brand}',
                       ),
                       _contentRow(
                         title: 'Quantity',
-                        nameTitle: '12 left',
+                        nameTitle: '${product.quantity} left',
                       ),
                       _contentRow(
                         title: 'Category',
-                        nameTitle: 'Category Name',
+                        nameTitle: '${product.productCategoryName}',
                       ),
                       _contentRow(
                         title: 'Popularity',
-                        nameTitle: 'Popular',
+                        nameTitle: product.isPopular ? 'Popular' : 'Barely',
                       ),
                       const SizedBox(height: 15),
                       const Divider(
