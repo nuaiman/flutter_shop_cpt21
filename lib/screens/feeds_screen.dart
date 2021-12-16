@@ -13,6 +13,12 @@ class FeedsScreen extends StatelessWidget {
     final productProvider = Provider.of<ProductProvider>(context);
     List<Product> productsList = productProvider.products();
 
+    final popular = ModalRoute.of(context)!.settings.arguments.toString();
+
+    if (popular == 'popular') {
+      productsList = productProvider.popularProducts;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Feeds Screen'),
@@ -20,7 +26,7 @@ class FeedsScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GridView.builder(
-          itemCount: 20,
+          itemCount: productsList.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             childAspectRatio: 2 / 3,

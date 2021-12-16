@@ -4,6 +4,7 @@ import 'package:backdrop/scaffold.dart';
 import 'package:carousel_pro_nullsafety/carousel_pro_nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
+import 'package:flutter_shop_cpt21/screens/feeds_screen.dart';
 import 'package:flutter_shop_cpt21/screens/inner_screens/brands_nav_rail.dart';
 import 'package:flutter_shop_cpt21/screens/wishlist_screen.dart';
 import 'package:flutter_shop_cpt21/widgets/back_layer.dart';
@@ -172,7 +173,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     'Popular Products',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
-                  TextButton(onPressed: () {}, child: const Text('view all')),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(
+                          FeedsScreen.routeName,
+                          arguments: 'popular',
+                        );
+                      },
+                      child: const Text('view all')),
                 ],
               ),
             ),
