@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/screens/inner_screens/brands_nav_rail_widget.dart';
+import 'package:provider/provider.dart';
 
 class BrandsNavRailScreen extends StatefulWidget {
   static const routeName = '/brands-nav-rail';
@@ -179,6 +181,8 @@ class ContentSpace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productData = Provider.of<ProductProvider>(context);
+    final productBrand = productData.getByBrandName(brand);
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 0, 0, 0),
@@ -188,9 +192,12 @@ class ContentSpace extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.only(top: 50),
             child: ListView.builder(
-              itemCount: 10,
+              itemCount: productBrand.length,
               itemBuilder: (ctx, i) {
-                return BrandNavRailWidget();
+                return ChangeNotifierProvider.value(
+                  value: productBrand[i],
+                  child: BrandNavRailWidget(),
+                );
               },
             ),
           ),

@@ -401,4 +401,12 @@ class ProductProvider with ChangeNotifier {
         .toList();
     return catList;
   }
+
+  List<Product> getByBrandName(String brandName) {
+    List<Product> catList = _products
+        .where(
+            (element) => element.brand.toLowerCase() == brandName.toLowerCase())
+        .toList();
+    return catList;
+  }
 }

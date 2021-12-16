@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
+import 'package:provider/provider.dart';
 
 class BrandNavRailWidget extends StatelessWidget {
   const BrandNavRailWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final productAttribute = Provider.of<Product>(context, listen: false);
+
     return InkWell(
       onTap: () {},
       child: Padding(
@@ -30,7 +34,7 @@ class BrandNavRailWidget extends StatelessWidget {
                         topRight: Radius.circular(12),
                       ),
                       child: Image.network(
-                        'https://images.pexels.com/photos/4600998/pexels-photo-4600998.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+                        productAttribute.imageUrl,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -50,7 +54,7 @@ class BrandNavRailWidget extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Text(
-                          '\$ 250.00',
+                          '\$ ${productAttribute.price}',
                           style: TextStyle(fontSize: 16),
                         ),
                       ),
@@ -62,7 +66,7 @@ class BrandNavRailWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Text(
-                  ' Name',
+                  ' ${productAttribute.title}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontSize: 20),
@@ -76,7 +80,7 @@ class BrandNavRailWidget extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        ' Category ',
+                        ' ${productAttribute.productCategoryName} ',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(fontSize: 20),

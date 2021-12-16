@@ -146,12 +146,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (ctx, i) {
                   return Container(
                     decoration: BoxDecoration(
+                      color: Colors.white,
                       border: Border.all(width: 2, color: Colors.grey),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Image.asset(
                       _swiperImages[i],
-                      fit: BoxFit.fill,
+                      fit: BoxFit.contain,
                     ),
                   );
                 },
