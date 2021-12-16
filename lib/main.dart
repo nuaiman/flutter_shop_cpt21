@@ -5,6 +5,7 @@ import 'package:flutter_shop_cpt21/screens/cart_screen.dart';
 import 'package:flutter_shop_cpt21/screens/feeds_screen.dart';
 import 'package:flutter_shop_cpt21/screens/home_screen.dart';
 import 'package:flutter_shop_cpt21/screens/inner_screens/brands_nav_rail.dart';
+import 'package:flutter_shop_cpt21/screens/inner_screens/categories_feed_screen.dart';
 import 'package:flutter_shop_cpt21/screens/inner_screens/product_details_screen.dart';
 import 'package:flutter_shop_cpt21/screens/search_screen.dart';
 import 'package:flutter_shop_cpt21/screens/user_scren.dart';
@@ -42,6 +43,8 @@ class MyApp extends StatelessWidget {
             WishlistScreen.routeName: (ctx) => const WishlistScreen(),
             ProductDetailsScreen.routeName: (ctx) =>
                 const ProductDetailsScreen(),
+            CategoriesFeedScreen.routeName: (ctx) =>
+                const CategoriesFeedScreen(),
           },
         );
       }),

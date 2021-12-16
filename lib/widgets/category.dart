@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/screens/inner_screens/categories_feed_screen.dart';
 
 class Category extends StatefulWidget {
   late int i;
@@ -13,7 +14,7 @@ class Category extends StatefulWidget {
 }
 
 class _CategoryState extends State<Category> {
-  List<Map<String, Object>> _categories = [
+  final List<Map<String, Object>> _categories = [
     {
       'catName': 'Phones',
       'catImage': 'assets/images/CatPhones.png',
@@ -48,7 +49,11 @@ class _CategoryState extends State<Category> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        print('${_categories[widget.i]['catName']}');
+        Navigator.of(context).pushNamed(
+          CategoriesFeedScreen.routeName,
+          arguments: _categories[widget.i]['catName'],
+        );
+        // print('${_categories[widget.i]['catName']}');
       },
       child: Container(
         height: 200,

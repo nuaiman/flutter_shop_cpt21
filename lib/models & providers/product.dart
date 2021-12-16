@@ -393,4 +393,12 @@ class ProductProvider with ChangeNotifier {
   ];
 
   List<Product> products() => _products;
+
+  List<Product> getByCatName(String catName) {
+    List<Product> catList = _products
+        .where((element) =>
+            element.productCategoryName.toLowerCase() == catName.toLowerCase())
+        .toList();
+    return catList;
+  }
 }
