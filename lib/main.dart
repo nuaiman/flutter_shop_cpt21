@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop_cpt21/providers/my_theme.dart';
+import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/screens/bottom_nav_screen.dart';
 import 'package:flutter_shop_cpt21/screens/cart_screen.dart';
 import 'package:flutter_shop_cpt21/screens/feeds_screen.dart';
@@ -10,6 +10,8 @@ import 'package:flutter_shop_cpt21/screens/search_screen.dart';
 import 'package:flutter_shop_cpt21/screens/user_scren.dart';
 import 'package:flutter_shop_cpt21/screens/wishlist_screen.dart';
 import 'package:provider/provider.dart';
+
+import 'models & providers/my_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +25,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (ctx) => ThemeNotifier()),
+        ChangeNotifierProvider(create: (ctx) => ProductProvider()),
       ],
       child: Consumer<ThemeNotifier>(builder: (context, notifier, _) {
         return MaterialApp(

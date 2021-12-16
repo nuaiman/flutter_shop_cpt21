@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/screens/cart_screen.dart';
 import 'package:flutter_shop_cpt21/widgets/feeds_product.dart';
+import 'package:provider/provider.dart';
 
 import '../wishlist_screen.dart';
 
@@ -18,6 +20,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductProvider>(context);
+    List<Product> productsList = productProvider.products();
+
     return Scaffold(
       bottomSheet: _bottomSheet(),
       appBar: AppBar(
@@ -200,21 +205,31 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     ),
                   ),
                 ),
-                // Container(
-                //   margin: const EdgeInsets.only(bottom: 30),
-                //   width: double.infinity,
-                //   height: 300,
-                //   child: ListView.builder(
-                //     scrollDirection: Axis.horizontal,
-                //     itemCount: 7,
-                //     itemBuilder: (ctx, i) {
-                //       return Padding(
-                //         padding: const EdgeInsets.all(8.0),
-                //         child: FeedsProduct(),
-                //       );
-                //     },
-                //   ),
-                // ),
+                Container(
+                  margin: const EdgeInsets.only(bottom: 30),
+                  width: double.infinity,
+                  height: 300,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 7,
+                    itemBuilder: (ctx, i) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          width: 200,
+                          child: FeedsProduct(
+                            id: productsList[i].id,
+                            description: productsList[i].description,
+                            imageUrl: productsList[i].imageUrl,
+                            isFavorite: productsList[i].isFavorite,
+                            price: productsList[i].price,
+                            quantity: productsList[i].quantity,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ),

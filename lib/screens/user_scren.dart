@@ -1,7 +1,6 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_shop_cpt21/providers/my_theme.dart';
+import 'package:flutter_shop_cpt21/models%20&%20providers/my_theme.dart';
 import 'package:flutter_shop_cpt21/screens/cart_screen.dart';
 import 'package:flutter_shop_cpt21/screens/wishlist_screen.dart';
 import 'package:provider/provider.dart';
