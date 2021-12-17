@@ -18,7 +18,7 @@ class Cart with ChangeNotifier {
 
 class CartProvider with ChangeNotifier {
   Map<String, Cart> _cartList = {};
-  Map<String, Cart> get carList => _cartList;
+  Map<String, Cart> get cartList => _cartList;
 
   double get totalAmount {
     double total = 0.0;
@@ -26,5 +26,30 @@ class CartProvider with ChangeNotifier {
       total += value.quantity * value.price;
     });
     return total;
+  }
+
+  void addToCart(String cId, String title, String imageUrl, double price) {
+    if (_cartList.containsKey(cId)) {
+      _cartList.update(
+          cId,
+          (value) => Cart(
+                cartId: value.cartId,
+                title: value.title,
+                imageUrl: value.imageUrl,
+                price: value.price,
+                quantity: value.quantity + 1,
+              ));
+    } else {
+      _cartList.putIfAbsent(
+        cId,
+        () => Cart(
+            cartId: DateTime.now().toIso8601String(),
+            title: title,
+            imageUrl: imageUrl,
+            price: price,
+            quantity: 1),
+      );
+    }
+    notifyListeners();
   }
 }
