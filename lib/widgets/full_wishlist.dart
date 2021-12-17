@@ -74,7 +74,9 @@ class _FullWishlistState extends State<FullWishlist> {
                         Padding(
                           padding: const EdgeInsets.only(right: 8.0),
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              wishlistProvider.removeItem(widget.pId);
+                            },
                             child: const Icon(
                               Icons.close,
                               color: Colors.red,
