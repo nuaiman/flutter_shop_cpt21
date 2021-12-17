@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
+import 'package:flutter_shop_cpt21/screens/inner_screens/product_details_screen.dart';
+import 'package:provider/provider.dart';
 
 class FullCart extends StatefulWidget {
   final String pId;
-  final String id;
-  final String title;
-  final String imageUrl;
-  final int quantity;
-  final double price;
+  // final String id;
+  // final String title;
+  // final String imageUrl;
+  // final int quantity;
+  // final double price;
   const FullCart({
     Key? key,
-    required this.id,
-    required this.imageUrl,
     required this.pId,
-    required this.price,
-    required this.quantity,
-    required this.title,
+    // required this.id,
+    // required this.imageUrl,
+    // required this.price,
+    // required this.quantity,
+    // required this.title,
   }) : super(key: key);
 
   @override
@@ -23,135 +26,144 @@ class FullCart extends StatefulWidget {
 
 class _FullCartState extends State<FullCart> {
   @override
+  // double subTotaal = widget.quantity * widget.price;
   Widget build(BuildContext context) {
-    double subTotaal = widget.quantity * widget.price;
+    final cartAttribute = Provider.of<Cart>(context);
 
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: Container(
-        width: double.infinity,
-        height: 150,
-        decoration: BoxDecoration(
-          border: Border.all(width: 2, color: Colors.grey),
-          borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(16),
-            bottomRight: Radius.circular(16),
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).pushNamed(
+          ProductDetailsScreen.routeName,
+          arguments: widget.pId,
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Container(
+          width: double.infinity,
+          height: 150,
+          decoration: BoxDecoration(
+            border: Border.all(width: 2, color: Colors.grey),
+            borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(16),
+              bottomRight: Radius.circular(16),
+            ),
           ),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 130,
-              decoration: BoxDecoration(
-                color: Colors.grey,
-                image: DecorationImage(
-                  image: NetworkImage(
-                    widget.imageUrl,
+          child: Row(
+            children: [
+              Container(
+                width: 130,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      cartAttribute.imageUrl,
+                    ),
+                    fit: BoxFit.cover,
                   ),
-                  fit: BoxFit.cover,
                 ),
               ),
-            ),
-            const SizedBox(width: 10),
-            Flexible(
-              child: Column(
-                children: [
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          widget.title,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 8.0),
-                        child: InkWell(
-                          onTap: () {},
-                          child: const Icon(
-                            Icons.close,
-                            color: Colors.red,
+              const SizedBox(width: 10),
+              Flexible(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            cartAttribute.title,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 18),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 7),
-                  Row(
-                    children: [
-                      const Text(
-                        'Price : ',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      Flexible(
-                        child: Text(
-                          '\$${widget.price}',
-                          overflow: TextOverflow.ellipsis,
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: InkWell(
+                            onTap: () {},
+                            child: const Icon(
+                              Icons.close,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 7),
+                    Row(
+                      children: [
+                        const Text(
+                          'Price : ',
                           style: TextStyle(fontSize: 16),
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text(
-                        'SubTotal : ',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      Flexible(
-                        child: Text(
-                          '\$$subTotaal',
-                          overflow: TextOverflow.ellipsis,
+                        Flexible(
+                          child: Text(
+                            '\$${cartAttribute.price}',
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const Text(
+                          'SubTotal : ',
                           style: TextStyle(fontSize: 16),
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Text(
-                        'Shipping : ',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      Flexible(
-                        child: Text(
-                          '\$450.00',
-                          overflow: TextOverflow.ellipsis,
+                        Flexible(
+                          child: Text(
+                            '\$${cartAttribute.price * cartAttribute.quantity}',
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const Text(
+                          'Shipping : ',
                           style: TextStyle(fontSize: 16),
                         ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          '-',
-                          style: TextStyle(fontSize: 25),
+                        Flexible(
+                          child: Text(
+                            '\$450.00',
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 16),
+                          ),
                         ),
-                      ),
-                      Text(
-                        widget.quantity.toString(),
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          '+',
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {},
+                          child: const Text(
+                            '-',
+                            style: TextStyle(fontSize: 25),
+                          ),
+                        ),
+                        Text(
+                          cartAttribute.quantity.toString(),
                           style: TextStyle(fontSize: 20),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        TextButton(
+                          onPressed: () {},
+                          child: const Text(
+                            '+',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
