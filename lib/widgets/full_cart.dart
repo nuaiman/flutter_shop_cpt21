@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
 
 class FullCart extends StatefulWidget {
-  const FullCart({Key? key}) : super(key: key);
+  final String pId;
+  final String id;
+  final String title;
+  final String imageUrl;
+  final int quantity;
+  final double price;
+  const FullCart({
+    Key? key,
+    required this.id,
+    required this.imageUrl,
+    required this.pId,
+    required this.price,
+    required this.quantity,
+    required this.title,
+  }) : super(key: key);
 
   @override
   _FullCartState createState() => _FullCartState();
@@ -10,6 +24,8 @@ class FullCart extends StatefulWidget {
 class _FullCartState extends State<FullCart> {
   @override
   Widget build(BuildContext context) {
+    double subTotaal = widget.quantity * widget.price;
+
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Container(
@@ -26,11 +42,11 @@ class _FullCartState extends State<FullCart> {
           children: [
             Container(
               width: 130,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.grey,
                 image: DecorationImage(
                   image: NetworkImage(
-                    'https://images.pexels.com/photos/4600998/pexels-photo-4600998.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+                    widget.imageUrl,
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -46,7 +62,7 @@ class _FullCartState extends State<FullCart> {
                     children: [
                       Flexible(
                         child: Text(
-                          'Monitor 2',
+                          widget.title,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: 18),
                         ),
@@ -72,7 +88,7 @@ class _FullCartState extends State<FullCart> {
                       ),
                       Flexible(
                         child: Text(
-                          '\$450.00',
+                          '\$${widget.price}',
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: 16),
                         ),
@@ -87,7 +103,7 @@ class _FullCartState extends State<FullCart> {
                       ),
                       Flexible(
                         child: Text(
-                          '\$450.00',
+                          '\$$subTotaal',
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: 16),
                         ),
@@ -120,7 +136,7 @@ class _FullCartState extends State<FullCart> {
                         ),
                       ),
                       Text(
-                        '1',
+                        widget.quantity.toString(),
                         style: TextStyle(fontSize: 20),
                       ),
                       TextButton(

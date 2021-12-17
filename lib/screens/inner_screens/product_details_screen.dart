@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/screens/cart_screen.dart';
 import 'package:flutter_shop_cpt21/widgets/feeds_product.dart';
@@ -21,14 +22,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final productId = ModalRoute.of(context)!.settings.arguments as String;
-
     final productProvider = Provider.of<ProductProvider>(context);
     List<Product> productsList = productProvider.products();
-
     final product = productProvider.getById(productId);
+    final cartProvider = Provider.of<CartProvider>(context);
 
     return Scaffold(
-      bottomSheet: _bottomSheet(),
+      bottomSheet: _bottomSheet(
+        cartProvider: cartProvider,
+        product: product,
+        productId: productId,
+      ),
       appBar: AppBar(
         title: Text('Details'),
         actions: [
@@ -273,8 +277,15 @@ class _contentRow extends StatelessWidget {
 }
 
 class _bottomSheet extends StatelessWidget {
+  final String productId;
+  final Product product;
+  final CartProvider cartProvider;
+
   const _bottomSheet({
     Key? key,
+    required this.cartProvider,
+    required this.product,
+    required this.productId,
   }) : super(key: key);
 
   @override
@@ -288,7 +299,14 @@ class _bottomSheet extends StatelessWidget {
             height: 50,
             child: Center(
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  cartProvider.addToCart(
+                    productId,
+                    product.title,
+                    product.imageUrl,
+                    product.price,
+                  );
+                },
                 child: Text(
                   'ADD TO CART',
                   style: TextStyle(fontSize: 18, color: Colors.white),

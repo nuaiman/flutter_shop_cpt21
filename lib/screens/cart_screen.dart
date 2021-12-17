@@ -14,7 +14,7 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
 
-    return cartProvider.cartList.isNotEmpty
+    return cartProvider.cartList.isEmpty
         ? const Scaffold(
             body: EmptyCart(),
           )
@@ -31,9 +31,16 @@ class CartScreen extends StatelessWidget {
             body: Container(
               margin: const EdgeInsets.only(bottom: 60),
               child: ListView.builder(
-                itemCount: 10,
+                itemCount: cartProvider.cartList.length,
                 itemBuilder: (ctx, i) {
-                  return FullCart();
+                  return FullCart(
+                    pId: cartProvider.cartList.keys.toList()[i],
+                    id: cartProvider.cartList.values.toList()[i].cartId,
+                    imageUrl: cartProvider.cartList.values.toList()[i].imageUrl,
+                    price: cartProvider.cartList.values.toList()[i].price,
+                    quantity: cartProvider.cartList.values.toList()[i].quantity,
+                    title: cartProvider.cartList.values.toList()[i].title,
+                  );
                 },
               ),
             ),

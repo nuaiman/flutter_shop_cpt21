@@ -28,10 +28,10 @@ class CartProvider with ChangeNotifier {
     return total;
   }
 
-  void addToCart(String cId, String title, String imageUrl, double price) {
-    if (_cartList.containsKey(cId)) {
+  void addToCart(String pId, String title, String imageUrl, double price) {
+    if (_cartList.containsKey(pId)) {
       _cartList.update(
-          cId,
+          pId,
           (value) => Cart(
                 cartId: value.cartId,
                 title: value.title,
@@ -41,7 +41,7 @@ class CartProvider with ChangeNotifier {
               ));
     } else {
       _cartList.putIfAbsent(
-        cId,
+        pId,
         () => Cart(
             cartId: DateTime.now().toIso8601String(),
             title: title,
