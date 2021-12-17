@@ -49,12 +49,12 @@ class CartScreen extends StatelessWidget {
                 },
               ),
             ),
-            bottomSheet: _bottomCheckoutSectiomn(),
+            bottomSheet: _bottomCheckoutSectiomn(cartProvider.totalAmount),
           );
   }
 }
 
-Widget _bottomCheckoutSectiomn() {
+Widget _bottomCheckoutSectiomn(double totalAmount) {
   return SizedBox(
     width: double.infinity,
     child: Padding(
@@ -64,7 +64,7 @@ Widget _bottomCheckoutSectiomn() {
         children: [
           Expanded(
             child: Text(
-              'Total: \$ 450.00',
+              'Total: \$ ${totalAmount.toStringAsFixed(2)}',
               style: const TextStyle(
                 fontSize: 18,
               ),
