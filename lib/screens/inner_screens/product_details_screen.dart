@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
+import 'package:flutter_shop_cpt21/models%20&%20providers/wishlist.dart';
 import 'package:flutter_shop_cpt21/screens/cart_screen.dart';
 import 'package:flutter_shop_cpt21/widgets/feeds_product.dart';
 import 'package:provider/provider.dart';
@@ -26,12 +27,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     List<Product> productsList = productProvider.products();
     final product = productProvider.getById(productId);
     final cartProvider = Provider.of<CartProvider>(context);
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
 
     return Scaffold(
       bottomSheet: _bottomSheet(
         cartProvider: cartProvider,
         product: product,
         productId: productId,
+        wishlistProvider: wishlistProvider,
       ),
       appBar: AppBar(
         title: Text('Details'),
@@ -280,12 +283,14 @@ class _bottomSheet extends StatelessWidget {
   final String productId;
   final Product product;
   final CartProvider cartProvider;
+  final WishlistProvider wishlistProvider;
 
   const _bottomSheet({
     Key? key,
     required this.cartProvider,
     required this.product,
     required this.productId,
+    required this.wishlistProvider,
   }) : super(key: key);
 
   @override
@@ -342,8 +347,20 @@ class _bottomSheet extends StatelessWidget {
             height: 50,
             child: Center(
               child: IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.favorite_border),
+                onPressed: () {
+                  wishlistProvider.addOrRemoveFromWishlist(
+                    productId,
+                    product.title,
+                    product.imageUrl,
+                    product.price,
+                  );
+                },
+                icon: wishlistProvider.wishlistList.containsKey(productId)
+                    ? Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                      )
+                    : Icon(Icons.favorite_border),
               ),
             ),
           ),
