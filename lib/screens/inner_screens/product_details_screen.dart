@@ -299,16 +299,20 @@ class _bottomSheet extends StatelessWidget {
             height: 50,
             child: Center(
               child: TextButton(
-                onPressed: () {
-                  cartProvider.addToCart(
-                    productId,
-                    product.title,
-                    product.imageUrl,
-                    product.price,
-                  );
-                },
+                onPressed: cartProvider.cartList.containsKey(productId)
+                    ? () {}
+                    : () {
+                        cartProvider.addToCart(
+                          productId,
+                          product.title,
+                          product.imageUrl,
+                          product.price,
+                        );
+                      },
                 child: Text(
-                  'ADD TO CART',
+                  cartProvider.cartList.containsKey(productId)
+                      ? 'IN CART'
+                      : 'ADD TO CART',
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),
