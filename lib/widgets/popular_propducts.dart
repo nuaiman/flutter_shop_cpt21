@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/screens/inner_screens/product_details_screen.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,7 @@ class PopularProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productAttrribute = Provider.of<Product>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -94,8 +96,21 @@ class PopularProducts extends StatelessWidget {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
-                    child: Icon(Icons.add_shopping_cart),
+                    onTap:
+                        cartProvider.cartList.containsKey(productAttrribute.id)
+                            ? () {}
+                            : () {
+                                cartProvider.addToCart(
+                                  productAttrribute.id,
+                                  productAttrribute.title,
+                                  productAttrribute.imageUrl,
+                                  productAttrribute.price,
+                                );
+                              },
+                    child:
+                        cartProvider.cartList.containsKey(productAttrribute.id)
+                            ? Icon(Icons.check)
+                            : Icon(Icons.add_shopping_cart),
                   ),
                 ],
               ),
