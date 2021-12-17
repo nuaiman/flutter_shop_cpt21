@@ -15,7 +15,7 @@ class Wishlist with ChangeNotifier {
 }
 
 class WishlistProvider with ChangeNotifier {
-  Map<String, Wishlist> _wishlistList = {};
+  final Map<String, Wishlist> _wishlistList = {};
   Map<String, Wishlist> get wishlistList => _wishlistList;
 
   void addOrRemoveFromWishlist(
