@@ -20,10 +20,12 @@ class CartScreen extends StatelessWidget {
           )
         : Scaffold(
             appBar: AppBar(
-              title: Text('Cart'),
+              title: Text('Cart (${cartProvider.cartList.length})'),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    cartProvider.clearCart();
+                  },
                   icon: const Icon(Icons.delete),
                 ),
               ],

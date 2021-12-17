@@ -61,7 +61,7 @@ class _FullCartState extends State<FullCart> {
                     image: NetworkImage(
                       cartAttribute.imageUrl,
                     ),
-                    fit: BoxFit.cover,
+                    // fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -83,7 +83,9 @@ class _FullCartState extends State<FullCart> {
                         Padding(
                           padding: const EdgeInsets.only(right: 8.0),
                           child: InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              cartProvider.removeItem(widget.pId);
+                            },
                             child: const Icon(
                               Icons.close,
                               color: Colors.red,
