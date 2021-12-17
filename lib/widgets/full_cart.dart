@@ -30,6 +30,8 @@ class _FullCartState extends State<FullCart> {
   Widget build(BuildContext context) {
     final cartAttribute = Provider.of<Cart>(context);
 
+    final cartProvider = Provider.of<CartProvider>(context);
+
     return InkWell(
       onTap: () {
         Navigator.of(context).pushNamed(
@@ -114,7 +116,7 @@ class _FullCartState extends State<FullCart> {
                         ),
                         Flexible(
                           child: Text(
-                            '\$${cartAttribute.price * cartAttribute.quantity}',
+                            '\$${(cartAttribute.price * cartAttribute.quantity).toStringAsFixed(2)}',
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(fontSize: 16),
                           ),
@@ -140,7 +142,16 @@ class _FullCartState extends State<FullCart> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         TextButton(
-                          onPressed: () {},
+                          onPressed: cartAttribute.quantity < 2
+                              ? () {}
+                              : () {
+                                  cartProvider.decrementCartProductQuantity(
+                                    widget.pId,
+                                    cartAttribute.title,
+                                    cartAttribute.imageUrl,
+                                    cartAttribute.price,
+                                  );
+                                },
                           child: const Text(
                             '-',
                             style: TextStyle(fontSize: 25),
@@ -151,7 +162,14 @@ class _FullCartState extends State<FullCart> {
                           style: TextStyle(fontSize: 20),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            cartProvider.addToCart(
+                              widget.pId,
+                              cartAttribute.title,
+                              cartAttribute.imageUrl,
+                              cartAttribute.price,
+                            );
+                          },
                           child: const Text(
                             '+',
                             style: TextStyle(fontSize: 20),
