@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
+import 'package:flutter_shop_cpt21/services/global_methods.dart';
 import 'package:flutter_shop_cpt21/widgets/empty_cart.dart';
 import 'package:flutter_shop_cpt21/widgets/full_cart.dart';
 import 'package:provider/provider.dart';
+
+import 'home_screen.dart';
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/Cart-screen';
@@ -13,7 +16,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
-
+    GlobalMethods globalMethods = GlobalMethods();
     return cartProvider.cartList.isEmpty
         ? const Scaffold(
             body: EmptyCart(),
@@ -23,8 +26,11 @@ class CartScreen extends StatelessWidget {
               title: Text('Cart (${cartProvider.cartList.length})'),
               actions: [
                 IconButton(
-                  onPressed: () {
-                    cartProvider.clearCart();
+                  onPressed: () async {
+                    await globalMethods.showDialogue(
+                      context,
+                      () => cartProvider.clearCart(),
+                    );
                   },
                   icon: const Icon(Icons.delete),
                 ),
