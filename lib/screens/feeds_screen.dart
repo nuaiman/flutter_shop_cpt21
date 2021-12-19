@@ -6,7 +6,6 @@ import 'package:flutter_shop_cpt21/models%20&%20providers/wishlist.dart';
 import 'package:flutter_shop_cpt21/screens/wishlist_screen.dart';
 import 'package:flutter_shop_cpt21/widgets/feeds_product.dart';
 import 'package:provider/provider.dart';
-
 import 'cart_screen.dart';
 
 class FeedsScreen extends StatelessWidget {

@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
             BottomNavScreen.routeName: (ctx) => const BottomNavScreen(),
             HomeScreen.routeName: (ctx) => const HomeScreen(),
             FeedsScreen.routeName: (ctx) => FeedsScreen(),
-            SearchScreen.routeName: (ctx) => const SearchScreen(),
+            SearchScreen.routeName: (ctx) => SearchScreen(),
             CartScreen.routeName: (ctx) => const CartScreen(),
             UserScreen.routeName: (ctx) => const UserScreen(),
             BrandsNavRailScreen.routeName: (ctx) => const BrandsNavRailScreen(),
