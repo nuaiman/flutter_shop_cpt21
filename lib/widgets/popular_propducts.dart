@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
+import 'package:flutter_shop_cpt21/models%20&%20providers/wishlist.dart';
 import 'package:flutter_shop_cpt21/screens/inner_screens/product_details_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -48,14 +49,25 @@ class PopularProducts extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-                  top: 12,
-                  right: 12,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.favorite),
-                  ),
-                ),
+                Consumer<WishlistProvider>(builder: (context, wp, _) {
+                  return Positioned(
+                    top: 12,
+                    right: 12,
+                    child: IconButton(
+                      onPressed: () {
+                        wp.addOrRemoveFromWishlist(
+                          productAttrribute.id,
+                          productAttrribute.title,
+                          productAttrribute.imageUrl,
+                          productAttrribute.price,
+                        );
+                      },
+                      icon: wp.wishlistList.containsKey(productAttrribute.id)
+                          ? Icon(Icons.favorite, color: Colors.red)
+                          : Icon(Icons.favorite),
+                    ),
+                  );
+                }),
                 Positioned(
                   bottom: 12,
                   right: 12,

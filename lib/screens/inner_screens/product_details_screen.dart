@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
@@ -39,18 +40,34 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       appBar: AppBar(
         title: Text('Details'),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(WishlistScreen.routeName);
-            },
-            icon: const Icon(Icons.favorite),
-          ),
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(CartScreen.routeName);
-            },
-            icon: const Icon(Icons.shopping_cart),
-          ),
+          Consumer<WishlistProvider>(builder: (context, wp, _) {
+            return Badge(
+              toAnimate: true,
+              animationType: BadgeAnimationType.slide,
+              position: BadgePosition.topEnd(top: 5, end: 7),
+              badgeContent: Text(wp.wishlistList.length.toString()),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(WishlistScreen.routeName);
+                },
+                icon: const Icon(Icons.favorite),
+              ),
+            );
+          }),
+          Consumer<CartProvider>(builder: (context, cp, _) {
+            return Badge(
+              toAnimate: true,
+              animationType: BadgeAnimationType.slide,
+              position: BadgePosition.topEnd(top: 5, end: 7),
+              badgeContent: Text(cp.cartList.length.toString()),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(CartScreen.routeName);
+                },
+                icon: const Icon(Icons.shopping_cart),
+              ),
+            );
+          }),
         ],
       ),
       body: Stack(

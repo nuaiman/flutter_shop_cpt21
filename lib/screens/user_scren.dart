@@ -1,6 +1,9 @@
 import 'dart:io';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/my_theme.dart';
+import 'package:flutter_shop_cpt21/models%20&%20providers/wishlist.dart';
 import 'package:flutter_shop_cpt21/screens/cart_screen.dart';
 import 'package:flutter_shop_cpt21/screens/wishlist_screen.dart';
 import 'package:provider/provider.dart';
@@ -80,27 +83,52 @@ class _UserScreenState extends State<UserScreen> {
                       // User Bag
                       const _userTileText(text: 'User Bag'),
                       const _userTileHeightSpace(height: 10),
-                      _userListTile(
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushNamed(WishlistScreen.routeName);
-                        },
-                        lIcon: Icons.favorite,
-                        color: Colors.red,
-                        title: 'Wishlist',
-                        tIcon: Icons.arrow_forward_ios,
-                        tIconCallBack: () {},
-                      ),
-                      _userListTile(
-                        onTap: () {
-                          Navigator.of(context).pushNamed(CartScreen.routeName);
-                        },
-                        lIcon: Icons.shopping_cart,
-                        color: Colors.deepPurpleAccent,
-                        title: 'Cart',
-                        tIcon: Icons.arrow_forward_ios,
-                        tIconCallBack: () {},
-                      ),
+
+                      Consumer<WishlistProvider>(builder: (context, wp, _) {
+                        return Card(
+                          child: ListTile(
+                            leading: Badge(
+                              toAnimate: true,
+                              animationType: BadgeAnimationType.slide,
+                              position: BadgePosition.topEnd(top: 5, end: 7),
+                              badgeColor: Colors.indigo,
+                              badgeContent:
+                                  Text(wp.wishlistList.length.toString()),
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                            title: Text('Wishlist'),
+                            trailing: Icon(Icons.arrow_forward_ios),
+                          ),
+                        );
+                      }),
+
+                      Consumer<CartProvider>(builder: (context, cp, _) {
+                        return Card(
+                          child: ListTile(
+                            leading: Badge(
+                              toAnimate: true,
+                              animationType: BadgeAnimationType.slide,
+                              position: BadgePosition.topEnd(top: 5, end: 7),
+                              badgeContent: Text(cp.cartList.length.toString()),
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.shopping_cart,
+                                  color: Colors.deepPurpleAccent,
+                                ),
+                              ),
+                            ),
+                            title: Text('Wishlist'),
+                            trailing: Icon(Icons.arrow_forward_ios),
+                          ),
+                        );
+                      }),
 
                       // User Settings
                       const _userTileHeightSpace(height: 15),
