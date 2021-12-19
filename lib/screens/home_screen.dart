@@ -62,7 +62,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 toAnimate: true,
                 animationType: BadgeAnimationType.slide,
                 position: BadgePosition.topEnd(top: 5, end: 7),
-                badgeContent: Text(wp.wishlistList.length.toString()),
+                badgeContent: Text(
+                  wp.wishlistList.length.toString(),
+                  style: TextStyle(color: Colors.white),
+                ),
                 child: IconButton(
                   onPressed: () {
                     Navigator.of(context).pushNamed(WishlistScreen.routeName);

@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/screens/inner_screens/product_details_screen.dart';
+import 'package:flutter_shop_cpt21/widgets/feeds_product_dialog.dart';
 import 'package:provider/provider.dart';
 
 class FeedsProduct extends StatefulWidget {
@@ -75,14 +76,25 @@ class _FeedsProductState extends State<FeedsProduct> {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      InkWell(
-                        onTap: () {},
-                        child: const Icon(Icons.more_horiz),
-                      ),
                     ],
                   ),
                 ],
               ),
+            ),
+          ),
+          Positioned(
+            bottom: 8,
+            right: 10,
+            child: IconButton(
+              onPressed: () async {
+                return showDialog(
+                  context: context,
+                  builder: (ctx) => FeedsProductDialog(
+                    product: productAttribute,
+                  ),
+                );
+              },
+              icon: const Icon(Icons.more_horiz),
             ),
           ),
           Badge(

@@ -64,7 +64,10 @@ class PopularProducts extends StatelessWidget {
                       },
                       icon: wp.wishlistList.containsKey(productAttrribute.id)
                           ? Icon(Icons.favorite, color: Colors.red)
-                          : Icon(Icons.favorite),
+                          : Icon(
+                              Icons.favorite,
+                              color: Colors.white,
+                            ),
                     ),
                   );
                 }),
