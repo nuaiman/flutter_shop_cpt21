@@ -87,19 +87,23 @@ class _UserScreenState extends State<UserScreen> {
                       Consumer<WishlistProvider>(builder: (context, wp, _) {
                         return Card(
                           child: ListTile(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed(WishlistScreen.routeName);
+                            },
                             leading: Badge(
                               toAnimate: true,
                               animationType: BadgeAnimationType.slide,
-                              position: BadgePosition.topEnd(top: 5, end: 7),
+                              position: BadgePosition.topEnd(top: 0, end: 0),
                               badgeColor: Colors.indigo,
-                              badgeContent:
-                                  Text(wp.wishlistList.length.toString()),
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                ),
+                              badgeContent: Text(
+                                wp.wishlistList.length.toString(),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              child: Icon(
+                                Icons.favorite,
+                                size: 40,
+                                color: Colors.red,
                               ),
                             ),
                             title: Text('Wishlist'),
@@ -111,17 +115,22 @@ class _UserScreenState extends State<UserScreen> {
                       Consumer<CartProvider>(builder: (context, cp, _) {
                         return Card(
                           child: ListTile(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed(CartScreen.routeName);
+                            },
                             leading: Badge(
                               toAnimate: true,
                               animationType: BadgeAnimationType.slide,
-                              position: BadgePosition.topEnd(top: 5, end: 7),
-                              badgeContent: Text(cp.cartList.length.toString()),
-                              child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.shopping_cart,
-                                  color: Colors.deepPurpleAccent,
-                                ),
+                              position: BadgePosition.topEnd(top: 0, end: 0),
+                              badgeContent: Text(
+                                cp.cartList.length.toString(),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              child: Icon(
+                                Icons.shopping_cart,
+                                size: 40,
+                                color: Colors.deepPurpleAccent,
                               ),
                             ),
                             title: Text('Wishlist'),
