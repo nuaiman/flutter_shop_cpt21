@@ -419,10 +419,11 @@ class ProductProvider with ChangeNotifier {
   }
 
   List<Product> getBySearch(String search) {
-    List<Product> catList = _products
+    List<Product> prodList = _products
         .where((element) =>
             element.title.toLowerCase().contains(search.toLowerCase()))
         .toList();
-    return catList;
+    notifyListeners();
+    return prodList;
   }
 }

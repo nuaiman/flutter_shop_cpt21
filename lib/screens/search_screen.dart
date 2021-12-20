@@ -4,63 +4,90 @@ import 'package:flutter_shop_cpt21/widgets/feeds_product.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
-  static const routeName = '/search-screen';
+  static const routeName = '/Search-screen';
+
+  const SearchScreen({Key? key}) : super(key: key);
+
   @override
-  _SearchState createState() => _SearchState();
+  State<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchState extends State<SearchScreen> {
-  @override
-  late TextEditingController _searchTextController;
+class _SearchScreenState extends State<SearchScreen> {
+  late TextEditingController _controller;
   final FocusNode _node = FocusNode();
+
+  @override
   void initState() {
-    super.initState();
-    _searchTextController = TextEditingController();
-    _searchTextController.addListener(() {
+    _controller = TextEditingController();
+    _controller.addListener(() {
       setState(() {});
     });
+    super.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
+    _controller.dispose();
     _node.dispose();
-    _searchTextController.dispose();
+    super.dispose();
   }
 
   late List<Product> _searchList;
+
+  @override
   Widget build(BuildContext context) {
-    final productsData = Provider.of<ProductProvider>(context);
-    final productsList = productsData.products();
+    final productData = Provider.of<ProductProvider>(context);
+    final productList = productData.products();
     return Scaffold(
-      body: _searchTextController.text.isNotEmpty && _searchList.isEmpty
+      bottomSheet: TextField(
+        controller: _controller,
+        focusNode: _node,
+        onChanged: (val) {
+          setState(() {
+            _searchList = productData.getBySearch(val);
+          });
+        },
+        minLines: 1,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(width: 0, style: BorderStyle.none),
+          ),
+          prefixIcon: Icon(Icons.search),
+          suffixIcon: IconButton(
+            onPressed: _controller.text.isEmpty
+                ? () {}
+                : () {
+                    _controller.clear();
+                    _node.unfocus();
+                  },
+            icon: Icon(
+              Icons.close,
+              color: _controller.text.isNotEmpty ? Colors.red : Colors.grey,
+            ),
+          ),
+        ),
+      ),
+      body: _controller.text.isNotEmpty && _searchList.isEmpty
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 50,
-                  ),
-                  Icon(
-                    Icons.search,
-                    size: 60,
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  Text(
-                    'No results found',
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
-                  ),
+                  SizedBox(height: 50),
+                  Icon(Icons.search, size: 60),
+                  SizedBox(height: 50),
+                  Text('No results found',
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
                 ],
               ),
             )
           : Padding(
               padding: const EdgeInsets.all(8.0),
               child: GridView.builder(
-                itemCount: _searchTextController.text.isNotEmpty
+                itemCount: _controller.text.isNotEmpty
                     ? _searchList.length
-                    : productsList.length,
+                    : productList.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: 2 / 3,
@@ -69,52 +96,14 @@ class _SearchState extends State<SearchScreen> {
                 ),
                 itemBuilder: (ctx, i) {
                   return ChangeNotifierProvider.value(
-                    value: _searchTextController.text.isNotEmpty
+                    value: _controller.text.isNotEmpty
                         ? _searchList[i]
-                        : productsList[i],
+                        : productList[i],
                     child: FeedsProduct(),
                   );
                 },
               ),
             ),
-      bottomSheet: TextField(
-        onChanged: (value) {
-          // _searchTextController.text.toLowerCase();
-          setState(() {
-            _searchList = productsData.getBySearch(value);
-          });
-        },
-        controller: _searchTextController,
-        minLines: 1,
-        focusNode: _node,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
-              width: 0,
-              style: BorderStyle.none,
-            ),
-          ),
-          prefixIcon: Icon(
-            Icons.search,
-          ),
-          hintText: 'Search',
-          filled: true,
-          fillColor: Theme.of(context).cardColor,
-          suffixIcon: IconButton(
-            onPressed: _searchTextController.text.isEmpty
-                ? null
-                : () {
-                    _searchTextController.clear();
-                    _node.unfocus();
-                  },
-            icon: Icon(Icons.close,
-                color: _searchTextController.text.isNotEmpty
-                    ? Colors.red
-                    : Colors.grey),
-          ),
-        ),
-      ),
     );
   }
 }

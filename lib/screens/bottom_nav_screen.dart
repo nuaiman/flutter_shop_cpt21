@@ -17,7 +17,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
   final List _pages = [
     const HomeScreen(),
     FeedsScreen(),
-    SearchScreen(),
+    const SearchScreen(),
     const CartScreen(),
     const UserScreen(),
   ];

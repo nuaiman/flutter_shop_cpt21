@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/screens/bottom_nav_screen.dart';
 
 class EmptyWishlist extends StatelessWidget {
   const EmptyWishlist({Key? key}) : super(key: key);
@@ -40,7 +41,10 @@ class EmptyWishlist extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context)
+                    .pushReplacementNamed(BottomNavScreen.routeName);
+              },
               child: const Text(
                 'Shop Now',
                 style: TextStyle(
