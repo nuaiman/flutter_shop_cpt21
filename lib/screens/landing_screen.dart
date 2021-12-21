@@ -111,7 +111,7 @@ class _LandingScreenState extends State<LandingScreen>
                     child: ElevatedButton(
                       onPressed: () {},
                       child: Text(
-                        'Login',
+                        'Google',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -121,7 +121,7 @@ class _LandingScreenState extends State<LandingScreen>
                     child: ElevatedButton(
                       onPressed: () {},
                       child: Text(
-                        'Signup',
+                        'Guest',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -129,7 +129,7 @@ class _LandingScreenState extends State<LandingScreen>
                   const SizedBox(width: 10),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
             ],
           ),
         ],
