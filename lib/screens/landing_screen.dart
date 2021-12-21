@@ -1,11 +1,47 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
-class LandingScreen extends StatelessWidget {
+class LandingScreen extends StatefulWidget {
   static const routeName = '/landing-screen';
 
   const LandingScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LandingScreen> createState() => _LandingScreenState();
+}
+
+class _LandingScreenState extends State<LandingScreen>
+    with TickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
+  List<String> _images = [
+    'assets/images/shopping1.jpeg',
+    'assets/images/shopping2.jpeg',
+  ];
+
+  @override
+  void initState() {
+    _images.shuffle();
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 20),
+    );
+    _animation =
+        CurvedAnimation(parent: _animationController, curve: Curves.linear)
+          ..addListener(() {
+            setState(() {});
+          })
+          ..addStatusListener((animationStatus) {
+            if (animationStatus == AnimationStatus.completed) {
+              _animationController.reset();
+              _animationController.forward();
+            }
+          });
+
+    _animationController.forward();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +52,9 @@ class LandingScreen extends StatelessWidget {
             height: double.infinity,
             width: double.infinity,
             child: Image.asset(
-              'assets/images/shopping1.jpeg',
+              _images[0],
               fit: BoxFit.cover,
-              // alignment: ,
+              alignment: FractionalOffset(_animation.value, 0),
             ),
           ),
           Column(
