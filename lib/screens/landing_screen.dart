@@ -14,7 +14,7 @@ class _LandingScreenState extends State<LandingScreen>
   late AnimationController _animationController;
   late Animation<double> _animation;
 
-  List<String> _images = [
+  final List<String> _images = [
     'assets/images/shopping1.jpeg',
     'assets/images/shopping2.jpeg',
   ];
@@ -84,7 +84,7 @@ class _LandingScreenState extends State<LandingScreen>
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         'Login',
                         style: TextStyle(color: Colors.white),
                       ),
@@ -94,7 +94,7 @@ class _LandingScreenState extends State<LandingScreen>
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         'Signup',
                         style: TextStyle(color: Colors.white),
                       ),
@@ -110,7 +110,7 @@ class _LandingScreenState extends State<LandingScreen>
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         'Google',
                         style: TextStyle(color: Colors.white),
                       ),
@@ -120,7 +120,7 @@ class _LandingScreenState extends State<LandingScreen>
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         'Guest',
                         style: TextStyle(color: Colors.white),
                       ),

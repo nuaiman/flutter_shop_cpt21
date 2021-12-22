@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/wishlist.dart';
+import 'package:flutter_shop_cpt21/screens/auth/login_screen.dart';
 import 'package:flutter_shop_cpt21/screens/bottom_nav_screen.dart';
 import 'package:flutter_shop_cpt21/screens/cart_screen.dart';
 import 'package:flutter_shop_cpt21/screens/feeds_screen.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: MyAppTheme.myThemes(notifier.isDark, context),
-          home: const LandingScreen(),
+          home: const LoginScreen(),
           routes: {
             BottomNavScreen.routeName: (ctx) => const BottomNavScreen(),
             HomeScreen.routeName: (ctx) => const HomeScreen(),

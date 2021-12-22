@@ -37,6 +37,7 @@ dependencies:
   flutter_swiper_null_safety: ^1.0.2
   provider: ^6.0.1
   shared_preferences: ^2.0.9
+  wave: ^0.2.0
 
 dev_dependencies:
   flutter_lints: ^1.0.0
