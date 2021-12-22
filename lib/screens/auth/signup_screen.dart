@@ -76,130 +76,135 @@ class _SignupScreenState extends State<SignupScreen> {
             key: _formKey,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 80),
-                  Center(
-                    child: Text(
-                      'Signup',
-                      style: TextStyle(fontSize: 65),
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  TextFormField(
-                    onSaved: (value) {
-                      _fullName = value!;
-                    },
-                    onEditingComplete: () =>
-                        FocusScope.of(context).requestFocus(_numberFocusNode),
-                    key: ValueKey('name'),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter your full name';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Full Name',
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      prefixIcon: Icon(Icons.person),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    onSaved: (value) {
-                      _phoneNumber = int.parse(value!);
-                    },
-                    onEditingComplete: () =>
-                        FocusScope.of(context).requestFocus(_emailFocusNode),
-                    // keyboardType: TextInputType.emailAddress,
-                    key: ValueKey('number'),
-                    validator: (value) {
-                      if (value!.length < 11) {
-                        return 'Phone number must be 11 units';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Phone Number',
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      prefixIcon: Icon(Icons.phone),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    onSaved: (value) {
-                      _email = value!;
-                    },
-                    onEditingComplete: () =>
-                        FocusScope.of(context).requestFocus(_passwordFocusNode),
-                    keyboardType: TextInputType.emailAddress,
-                    key: ValueKey('email'),
-                    validator: (value) {
-                      if (value!.isEmpty || !value.contains('@')) {
-                        return 'Please enter a valid email address';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      prefixIcon: Icon(Icons.email),
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    focusNode: _passwordFocusNode,
-                    onSaved: (value) {
-                      _password = value!;
-                    },
-                    onEditingComplete: _submitData,
-                    obscureText: _isVisible,
-                    key: ValueKey('password'),
-                    validator: (value) {
-                      if (value!.isEmpty || value.length < 8) {
-                        return 'Password must be atleast 8 units';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      prefixIcon: Icon(Icons.lock),
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _isVisible = !_isVisible;
-                          });
-                        },
-                        icon: Icon(_isVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 80),
+                    Center(
+                      child: Text(
+                        'Signup',
+                        style: TextStyle(fontSize: 65),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: _submitData,
-                    child: Text(
-                      'Signup',
-                      style: TextStyle(color: Colors.white),
+                    const SizedBox(height: 30),
+                    TextFormField(
+                      onSaved: (value) {
+                        _fullName = value!;
+                      },
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: () =>
+                          FocusScope.of(context).requestFocus(_numberFocusNode),
+                      key: ValueKey('name'),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter your full name';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Full Name',
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        prefixIcon: Icon(Icons.person),
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                    TextFormField(
+                      onSaved: (value) {
+                        _phoneNumber = int.parse(value!);
+                      },
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: () =>
+                          FocusScope.of(context).requestFocus(_emailFocusNode),
+                      // keyboardType: TextInputType.emailAddress,
+                      key: ValueKey('number'),
+                      validator: (value) {
+                        if (value!.length < 11) {
+                          return 'Phone number must be 11 units';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Phone Number',
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        prefixIcon: Icon(Icons.phone),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    TextFormField(
+                      onSaved: (value) {
+                        _email = value!;
+                      },
+                      onEditingComplete: () => FocusScope.of(context)
+                          .requestFocus(_passwordFocusNode),
+                      keyboardType: TextInputType.emailAddress,
+                      key: ValueKey('email'),
+                      validator: (value) {
+                        if (value!.isEmpty || !value.contains('@')) {
+                          return 'Please enter a valid email address';
+                        }
+                        return null;
+                      },
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        prefixIcon: Icon(Icons.email),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    TextFormField(
+                      focusNode: _passwordFocusNode,
+                      onSaved: (value) {
+                        _password = value!;
+                      },
+                      onEditingComplete: _submitData,
+                      obscureText: _isVisible,
+                      key: ValueKey('password'),
+                      validator: (value) {
+                        if (value!.isEmpty || value.length < 8) {
+                          return 'Password must be atleast 8 units';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        prefixIcon: Icon(Icons.lock),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _isVisible = !_isVisible;
+                            });
+                          },
+                          icon: Icon(_isVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: _submitData,
+                      child: Text(
+                        'Signup',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
