@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/screens/auth/login_screen.dart';
+import 'package:flutter_shop_cpt21/screens/auth/signup_screen.dart';
+import 'package:flutter_shop_cpt21/screens/bottom_nav_screen.dart';
 
 class LandingScreen extends StatefulWidget {
   static const routeName = '/landing-screen';
@@ -83,7 +86,9 @@ class _LandingScreenState extends State<LandingScreen>
                   const SizedBox(width: 10),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(LoginScreen.routeName);
+                      },
                       child: const Text(
                         'Login',
                         style: TextStyle(color: Colors.white),
@@ -93,7 +98,9 @@ class _LandingScreenState extends State<LandingScreen>
                   const SizedBox(width: 10),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(SignupScreen.routeName);
+                      },
                       child: const Text(
                         'Signup',
                         style: TextStyle(color: Colors.white),
@@ -119,7 +126,10 @@ class _LandingScreenState extends State<LandingScreen>
                   const SizedBox(width: 10),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(BottomNavScreen.routeName);
+                      },
                       child: const Text(
                         'Guest',
                         style: TextStyle(color: Colors.white),

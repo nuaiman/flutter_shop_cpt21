@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: MyAppTheme.myThemes(notifier.isDark, context),
-          home: const SignupScreen(),
+          home: const LandingScreen(),
           routes: {
             BottomNavScreen.routeName: (ctx) => const BottomNavScreen(),
             HomeScreen.routeName: (ctx) => const HomeScreen(),

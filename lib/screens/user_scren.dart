@@ -162,6 +162,16 @@ class _UserScreenState extends State<UserScreen> {
                           );
                         }),
                       ),
+                      _userListTile(
+                        lIcon: Icons.power_settings_new,
+                        color: Colors.red,
+                        title: 'Logout',
+                        onTap: () {
+                          Navigator.of(context).canPop()
+                              ? Navigator.pop(context)
+                              : null;
+                        },
+                      ),
 
                       // User Information
                       const _userTileHeightSpace(height: 15),
