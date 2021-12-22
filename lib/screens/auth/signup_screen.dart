@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop_cpt21/screens/auth/signup_screen.dart';
+import 'package:flutter_shop_cpt21/screens/auth/login_screen.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
-class LoginScreen extends StatefulWidget {
-  static const routeName = '/Login-screen';
+class SignupScreen extends StatefulWidget {
+  static const routeName = '/Signup-screen';
 
-  const LoginScreen({Key? key}) : super(key: key);
+  const SignupScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   void _chanageVisibility() {
     setState(() {
       _isVisible = !_isVisible;
@@ -23,6 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String _email = '';
   String _password = '';
+  String _fullName = '';
+  late int _phoneNumber;
 
   bool _isVisible = false;
 
@@ -35,10 +37,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   FocusNode _passwordFocusNode = FocusNode();
+  FocusNode _emailFocusNode = FocusNode();
+  FocusNode _numberFocusNode = FocusNode();
 
   @override
   void dispose() {
     _passwordFocusNode.dispose();
+    _emailFocusNode.dispose();
+    _numberFocusNode.dispose();
     super.dispose();
   }
 
@@ -76,11 +82,58 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 80),
                   Center(
                     child: Text(
-                      'Login',
+                      'Signup',
                       style: TextStyle(fontSize: 65),
                     ),
                   ),
                   const SizedBox(height: 30),
+                  TextFormField(
+                    onSaved: (value) {
+                      _fullName = value!;
+                    },
+                    onEditingComplete: () =>
+                        FocusScope.of(context).requestFocus(_numberFocusNode),
+                    key: ValueKey('name'),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your full name';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Full Name',
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    onSaved: (value) {
+                      _phoneNumber = int.parse(value!);
+                    },
+                    onEditingComplete: () =>
+                        FocusScope.of(context).requestFocus(_emailFocusNode),
+                    // keyboardType: TextInputType.emailAddress,
+                    key: ValueKey('number'),
+                    validator: (value) {
+                      if (value!.length < 11) {
+                        return 'Phone number must be 11 units';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Phone Number',
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      prefixIcon: Icon(Icons.phone),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
                   TextFormField(
                     onSaved: (value) {
                       _email = value!;
@@ -142,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: _submitData,
                     child: Text(
-                      'Login',
+                      'Signup',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -157,10 +210,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: TextButton(
                   onPressed: () {
                     Navigator.of(context)
-                        .pushReplacementNamed(SignupScreen.routeName);
+                        .pushReplacementNamed(LoginScreen.routeName);
                   },
                   child: Text(
-                    'Create an Account',
+                    'Login to Your Account',
                     style: TextStyle(color: Colors.deepPurpleAccent),
                   ),
                 ),
