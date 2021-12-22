@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
@@ -37,7 +39,7 @@ class _FeedsProductState extends State<FeedsProduct> {
                   Center(
                     child: Container(
                       constraints: BoxConstraints(
-                          minHeight: 170,
+                          minHeight: Platform.isIOS ? 170 : 140,
                           maxHeight: MediaQuery.of(context).size.height * 0.21),
                       child: Center(
                         child: Image.network(productAttribute.imageUrl),

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/screens/auth/login_screen.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
@@ -25,6 +28,15 @@ class _SignupScreenState extends State<SignupScreen> {
   String _password = '';
   String _fullName = '';
   late int _phoneNumber;
+  File? _image;
+
+  Future _getImage() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = File(image!.path);
+    });
+  }
 
   bool _isVisible = false;
 
@@ -81,11 +93,27 @@ class _SignupScreenState extends State<SignupScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const SizedBox(height: 80),
-                    Center(
-                      child: Text(
-                        'Signup',
-                        style: TextStyle(fontSize: 65),
-                      ),
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: _getImage,
+                          child: CircleAvatar(
+                            radius: 60,
+                            backgroundImage:
+                                _image == null ? null : FileImage(_image!),
+                            child: Icon(
+                              _image == null ? null : Icons.camera,
+                              color: Colors.white,
+                              size: 50,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 20),
+                        Text(
+                          'Signup',
+                          style: TextStyle(fontSize: 65),
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 30),
                     TextFormField(
