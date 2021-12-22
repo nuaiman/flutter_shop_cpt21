@@ -3,6 +3,8 @@ import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
 class LoginScreen extends StatefulWidget {
+  static const routeName = '/Login-screen';
+
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
@@ -22,6 +24,22 @@ class _LoginScreenState extends State<LoginScreen> {
   String _password = '';
 
   bool _isVisible = false;
+
+  void _submitData() {
+    final _isValid = _formKey.currentState!.validate();
+    FocusScope.of(context).unfocus();
+    if (_isValid) {
+      _formKey.currentState!.save();
+    }
+  }
+
+  FocusNode _passwordFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    _passwordFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +82,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   onSaved: (value) {
                     _email = value!;
                   },
+                  onEditingComplete: () =>
+                      FocusScope.of(context).requestFocus(_passwordFocusNode),
                   keyboardType: TextInputType.emailAddress,
                   key: ValueKey('email'),
                   validator: (value) {
@@ -83,9 +103,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
+                  focusNode: _passwordFocusNode,
                   onSaved: (value) {
                     _password = value!;
                   },
+                  onEditingComplete: _submitData,
                   obscureText: _isVisible,
                   key: ValueKey('password'),
                   validator: (value) {
@@ -114,9 +136,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 30),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: _submitData,
                   child: Text(
-                    'Create an Account',
+                    'Login',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -131,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () {},
                   child: Text(
                     'Create an Account',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.deepPurpleAccent),
                   ),
                 ),
               ),
