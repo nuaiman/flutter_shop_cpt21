@@ -87,11 +87,14 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: _trySubmit,
-        child: const Icon(
-          Icons.upload,
-          color: Colors.white,
+      bottomSheet: SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+          onPressed: _trySubmit,
+          child: Text(
+            'S U B M i T',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
       ),
       body: SafeArea(
@@ -330,30 +333,6 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
                     ],
                   ),
                   SizedBox(height: 15),
-                  TextFormField(
-                      key: ValueKey('Description'),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'product description is required';
-                        }
-                        return null;
-                      },
-                      //controller: this._controller,
-                      maxLines: 10,
-                      textCapitalization: TextCapitalization.sentences,
-                      decoration: InputDecoration(
-                        //  counterText: charLength.toString(),
-                        labelText: 'Description',
-                        hintText: 'Product description',
-                        border: OutlineInputBorder(),
-                      ),
-                      onSaved: (value) {
-                        _productDescription = value.toString();
-                      },
-                      onChanged: (text) {
-                        // setState(() => charLength -= text.length);
-                      }),
-                  //    SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -382,6 +361,31 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
                       ),
                     ],
                   ),
+                  SizedBox(height: 15),
+                  TextFormField(
+                      key: ValueKey('Description'),
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'product description is required';
+                        }
+                        return null;
+                      },
+                      //controller: this._controller,
+                      maxLines: 10,
+                      textCapitalization: TextCapitalization.sentences,
+                      decoration: InputDecoration(
+                        //  counterText: charLength.toString(),
+                        labelText: 'Description',
+                        hintText: 'Product description',
+                        border: OutlineInputBorder(),
+                      ),
+                      onSaved: (value) {
+                        _productDescription = value.toString();
+                      },
+                      onChanged: (text) {
+                        // setState(() => charLength -= text.length);
+                      }),
+                  //    SizedBox(height: 10),
                 ],
               ),
             ),
