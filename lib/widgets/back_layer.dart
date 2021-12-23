@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/screens/inner_screens/upload_product_screen.dart';
 
 class BackLayer extends StatelessWidget {
   const BackLayer({Key? key}) : super(key: key);
@@ -37,7 +38,10 @@ class BackLayer extends StatelessWidget {
                 _backLayerButton(
                   title: 'Upload A Product',
                   icon: Icons.upload,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context)
+                        .pushNamed(UploadProductScreen.routeName);
+                  },
                 ),
               ],
             ),
