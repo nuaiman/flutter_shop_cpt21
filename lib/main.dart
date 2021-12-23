@@ -13,6 +13,7 @@ import 'package:flutter_shop_cpt21/screens/inner_screens/categories_feed_screen.
 import 'package:flutter_shop_cpt21/screens/inner_screens/product_details_screen.dart';
 import 'package:flutter_shop_cpt21/screens/inner_screens/upload_product_screen.dart';
 import 'package:flutter_shop_cpt21/screens/landing_screen.dart';
+import 'package:flutter_shop_cpt21/screens/main_screen.dart';
 import 'package:flutter_shop_cpt21/screens/search_screen.dart';
 import 'package:flutter_shop_cpt21/screens/user_scren.dart';
 import 'package:flutter_shop_cpt21/screens/wishlist_screen.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: MyAppTheme.myThemes(notifier.isDark, context),
-          home: const BottomNavScreen(),
+          home: const MainScreen(),
           routes: {
             BottomNavScreen.routeName: (ctx) => const BottomNavScreen(),
             HomeScreen.routeName: (ctx) => const HomeScreen(),
