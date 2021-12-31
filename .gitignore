@@ -30,6 +30,8 @@
 .pub-cache/
 .pub/
 /build/
+/google-services.json
+/GoogleService-Info.plist
 
 # Web related
 lib/generated_plugin_registrant.dart

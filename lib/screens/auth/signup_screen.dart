@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/screens/auth/login_screen.dart';
 import 'package:image_picker/image_picker.dart';
@@ -29,6 +29,7 @@ class _SignupScreenState extends State<SignupScreen> {
   String _fullName = '';
   late int _phoneNumber;
   File? _image;
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future _getImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -40,12 +41,14 @@ class _SignupScreenState extends State<SignupScreen> {
 
   bool _isVisible = false;
 
-  void _submitData() {
+  void _submitData() async {
     final _isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
     if (_isValid) {
       _formKey.currentState!.save();
     }
+    await _auth.createUserWithEmailAndPassword(
+        email: _email, password: _password);
   }
 
   FocusNode _passwordFocusNode = FocusNode();
@@ -65,24 +68,24 @@ class _SignupScreenState extends State<SignupScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          RotatedBox(
-            quarterTurns: 2,
-            child: WaveWidget(
-              config: CustomConfig(
-                colors: [
-                  Colors.orangeAccent,
-                  Colors.tealAccent,
-                  Colors.pinkAccent,
-                  Colors.deepPurpleAccent,
-                ],
-                durations: [35000, 11000, 10800, 6000],
-                heightPercentages: [0.01, 0.02, 0.03, 0.1],
-                blur: const MaskFilter.blur(BlurStyle.solid, 0),
-              ),
-              heightPercentange: 0.2,
-              size: const Size(double.infinity, double.infinity),
-            ),
-          ),
+          // RotatedBox(
+          //   quarterTurns: 2,
+          //   child: WaveWidget(
+          //     config: CustomConfig(
+          //       colors: [
+          //         Colors.orangeAccent,
+          //         Colors.tealAccent,
+          //         Colors.pinkAccent,
+          //         Colors.deepPurpleAccent,
+          //       ],
+          //       durations: [35000, 11000, 10800, 6000],
+          //       heightPercentages: [0.01, 0.02, 0.03, 0.1],
+          //       blur: const MaskFilter.blur(BlurStyle.solid, 0),
+          //     ),
+          //     heightPercentange: 0.2,
+          //     size: const Size(double.infinity, double.infinity),
+          //   ),
+          // ),
           Form(
             key: _formKey,
             child: Padding(
@@ -101,7 +104,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             backgroundImage:
                                 _image == null ? null : FileImage(_image!),
                             child: Icon(
-                              _image == null ? null : Icons.camera,
+                              _image == null ? Icons.camera : null,
                               color: Colors.white,
                               size: 50,
                             ),

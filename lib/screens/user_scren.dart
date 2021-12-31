@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:badges/badges.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/my_theme.dart';
@@ -166,7 +167,7 @@ class _UserScreenState extends State<UserScreen> {
                         lIcon: Icons.power_settings_new,
                         color: Colors.red,
                         title: 'Logout',
-                        onTap: () {
+                        onTap: () async {
                           Navigator.of(context).canPop()
                               ? Navigator.pop(context)
                               : null;

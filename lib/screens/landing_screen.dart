@@ -51,15 +51,15 @@ class _LandingScreenState extends State<LandingScreen>
     return Scaffold(
       body: Stack(
         children: [
-          SizedBox(
-            height: double.infinity,
-            width: double.infinity,
-            child: Image.asset(
-              _images[0],
-              fit: BoxFit.cover,
-              alignment: FractionalOffset(_animation.value, 0),
-            ),
-          ),
+          // SizedBox(
+          //   height: double.infinity,
+          //   width: double.infinity,
+          //   child: Image.asset(
+          //     _images[0],
+          //     fit: BoxFit.cover,
+          //     alignment: FractionalOffset(_animation.value, 0),
+          //   ),
+          // ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
