@@ -22,6 +22,19 @@
 	<string>We Need Access to Images</string>
 	<key>NSCameraUsageDescription</key>
 	<string>We Need Access to Images</string>
+	<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<!-- TODO Replace this value: -->
+			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+			<string>com.googleusercontent.apps.163897983092-bavb3d0odu8ffgte8np1dol4pvuraon9</string>
+		</array>
+	</dict>
+</array>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>We Need Access to Images</string>
 	<key>CFBundleVersion</key>

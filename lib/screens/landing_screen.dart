@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/screens/auth/login_screen.dart';
 import 'package:flutter_shop_cpt21/screens/auth/signup_screen.dart';
 import 'package:flutter_shop_cpt21/screens/bottom_nav_screen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LandingScreen extends StatefulWidget {
   static const routeName = '/landing-screen';
@@ -16,35 +18,52 @@ class _LandingScreenState extends State<LandingScreen>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  Future<void> _googleSignIn() async {
+    final googleSignIn = GoogleSignIn();
+    final googleAccount = await googleSignIn.signIn();
+
+    if (googleAccount != null) {
+      final googleAuth = await googleAccount.authentication;
+      if (googleAuth.accessToken != null && googleAuth.idToken != null) {
+        final authResult =
+            await _auth.signInWithCredential(GoogleAuthProvider.credential(
+          idToken: googleAuth.idToken,
+          accessToken: googleAuth.accessToken,
+        ));
+      }
+    }
+  }
 
   final List<String> _images = [
     'assets/images/shopping1.jpeg',
     'assets/images/shopping2.jpeg',
   ];
 
-  @override
-  void initState() {
-    _images.shuffle();
+  // @override
+  // void initState() {
+  //   _images.shuffle();
 
-    _animationController = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 20),
-    );
-    _animation =
-        CurvedAnimation(parent: _animationController, curve: Curves.linear)
-          ..addListener(() {
-            setState(() {});
-          })
-          ..addStatusListener((animationStatus) {
-            if (animationStatus == AnimationStatus.completed) {
-              _animationController.reset();
-              _animationController.forward();
-            }
-          });
+  //   _animationController = AnimationController(
+  //     vsync: this,
+  //     duration: Duration(seconds: 20),
+  //   );
+  //   _animation =
+  //       CurvedAnimation(parent: _animationController, curve: Curves.linear)
+  //         ..addListener(() {
+  //           setState(() {});
+  //         })
+  //         ..addStatusListener((animationStatus) {
+  //           if (animationStatus == AnimationStatus.completed) {
+  //             _animationController.reset();
+  //             _animationController.forward();
+  //           }
+  //         });
 
-    _animationController.forward();
-    super.initState();
-  }
+  //   _animationController.forward();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +135,7 @@ class _LandingScreenState extends State<LandingScreen>
                   const SizedBox(width: 10),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: _googleSignIn,
                       child: const Text(
                         'Google',
                         style: TextStyle(color: Colors.white),

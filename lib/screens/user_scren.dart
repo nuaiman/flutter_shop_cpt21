@@ -169,9 +169,9 @@ class _UserScreenState extends State<UserScreen> {
                         title: 'Logout',
                         onTap: () async {
                           await FirebaseAuth.instance.signOut();
-                          Navigator.of(context).canPop()
-                              ? Navigator.pop(context)
-                              : null;
+                          // Navigator.of(context).canPop()
+                          //     ? Navigator.pop(context)
+                          //     : null;
                         },
                       ),
 
