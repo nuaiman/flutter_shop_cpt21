@@ -55,7 +55,7 @@ class _SignupScreenState extends State<SignupScreen> {
     }
     try {
       await _auth.createUserWithEmailAndPassword(
-          email: _email, password: _password);
+          email: _email.toLowerCase().trim(), password: _password.trim());
     } catch (error) {
       _globalMethods.authDialog(context, error.toString());
     } finally {
