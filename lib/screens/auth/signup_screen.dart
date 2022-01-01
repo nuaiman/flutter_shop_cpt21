@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/screens/auth/login_screen.dart';
+import 'package:flutter_shop_cpt21/services/global_methods.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
@@ -30,6 +31,8 @@ class _SignupScreenState extends State<SignupScreen> {
   late int _phoneNumber;
   File? _image;
   FirebaseAuth _auth = FirebaseAuth.instance;
+  bool _isLoading = false;
+  GlobalMethods _globalMethods = GlobalMethods();
 
   Future _getImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -39,21 +42,38 @@ class _SignupScreenState extends State<SignupScreen> {
     });
   }
 
-  bool _isVisible = false;
+  late bool _isVisible;
 
   void _submitData() async {
     final _isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
     if (_isValid) {
+      setState(() {
+        _isLoading = true;
+      });
       _formKey.currentState!.save();
     }
-    await _auth.createUserWithEmailAndPassword(
-        email: _email, password: _password);
+    try {
+      await _auth.createUserWithEmailAndPassword(
+          email: _email, password: _password);
+    } catch (error) {
+      _globalMethods.authDialog(context, error.toString());
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   FocusNode _passwordFocusNode = FocusNode();
   FocusNode _emailFocusNode = FocusNode();
   FocusNode _numberFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    _isVisible = false;
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -226,13 +246,17 @@ class _SignupScreenState extends State<SignupScreen> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: _submitData,
-                      child: Text(
-                        'Signup',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
+                    _isLoading
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : ElevatedButton(
+                            onPressed: _submitData,
+                            child: Text(
+                              'Signup',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
                   ],
                 ),
               ),
