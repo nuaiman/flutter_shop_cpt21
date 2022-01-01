@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/screens/auth/login_screen.dart';
 import 'package:flutter_shop_cpt21/screens/auth/signup_screen.dart';
 import 'package:flutter_shop_cpt21/screens/bottom_nav_screen.dart';
+import 'package:flutter_shop_cpt21/services/global_methods.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -19,6 +20,7 @@ class _LandingScreenState extends State<LandingScreen>
   late AnimationController _animationController;
   late Animation<double> _animation;
   FirebaseAuth _auth = FirebaseAuth.instance;
+  GlobalMethods _globalMethods = GlobalMethods();
 
   Future<void> _googleSignIn() async {
     final googleSignIn = GoogleSignIn();
@@ -27,11 +29,15 @@ class _LandingScreenState extends State<LandingScreen>
     if (googleAccount != null) {
       final googleAuth = await googleAccount.authentication;
       if (googleAuth.accessToken != null && googleAuth.idToken != null) {
-        final authResult =
-            await _auth.signInWithCredential(GoogleAuthProvider.credential(
-          idToken: googleAuth.idToken,
-          accessToken: googleAuth.accessToken,
-        ));
+        try {
+          final authResult =
+              await _auth.signInWithCredential(GoogleAuthProvider.credential(
+            idToken: googleAuth.idToken,
+            accessToken: googleAuth.accessToken,
+          ));
+        } catch (error) {
+          _globalMethods.authDialog(context, error.toString());
+        }
       }
     }
   }
