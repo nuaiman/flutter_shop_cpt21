@@ -54,8 +54,11 @@ class _SignupScreenState extends State<SignupScreen> {
       _formKey.currentState!.save();
     }
     try {
-      await _auth.createUserWithEmailAndPassword(
-          email: _email.toLowerCase().trim(), password: _password.trim());
+      await _auth
+          .createUserWithEmailAndPassword(
+              email: _email.toLowerCase().trim(), password: _password.trim())
+          .then((value) =>
+              Navigator.canPop(context) ? Navigator.pop(context) : null);
     } catch (error) {
       _globalMethods.authDialog(context, error.toString());
     } finally {
