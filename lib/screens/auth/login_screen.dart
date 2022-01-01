@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/screens/auth/signup_screen.dart';
+import 'package:flutter_shop_cpt21/services/global_methods.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
@@ -26,11 +28,28 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _isVisible = false;
 
-  void _submitData() {
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  bool _isLoading = false;
+  GlobalMethods _globalMethods = GlobalMethods();
+
+  void _submitData() async {
     final _isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
     if (_isValid) {
+      setState(() {
+        _isLoading = true;
+      });
       _formKey.currentState!.save();
+    }
+    try {
+      await _auth.signInWithEmailAndPassword(
+          email: _email, password: _password);
+    } catch (error) {
+      _globalMethods.authDialog(context, error.toString());
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -140,13 +159,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: _submitData,
-                      child: Text(
-                        'Login',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
+                    _isLoading
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : ElevatedButton(
+                            onPressed: _submitData,
+                            child: Text(
+                              'Login',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
                   ],
                 ),
               ),
