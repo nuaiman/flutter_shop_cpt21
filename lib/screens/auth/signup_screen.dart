@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/screens/auth/login_screen.dart';
@@ -47,6 +48,10 @@ class _SignupScreenState extends State<SignupScreen> {
   void _submitData() async {
     final _isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
+    var date = DateTime.now().toString();
+    var parsedDate = DateTime.parse(date);
+    var formattedDate =
+        '${parsedDate.day}/${parsedDate.month}/${parsedDate.year}';
     if (_isValid) {
       setState(() {
         _isLoading = true;
@@ -54,11 +59,22 @@ class _SignupScreenState extends State<SignupScreen> {
       _formKey.currentState!.save();
     }
     try {
-      await _auth
-          .createUserWithEmailAndPassword(
-              email: _email.toLowerCase().trim(), password: _password.trim())
-          .then((value) =>
-              Navigator.canPop(context) ? Navigator.pop(context) : null);
+      await _auth.createUserWithEmailAndPassword(
+          email: _email.toLowerCase().trim(), password: _password.trim());
+
+      final User? user = _auth.currentUser;
+      final _uid = user!.uid;
+      FirebaseFirestore.instance.collection('users').doc(_uid).set({
+        'id': _uid,
+        'name': _fullName,
+        'email': _email,
+        'phoneNumber': _phoneNumber,
+        'imageUrl': '',
+        'joinedDate': formattedDate,
+        // 'createdAt': TimeStamp.now()
+      });
+
+      Navigator.canPop(context) ? Navigator.pop(context) : null;
     } catch (error) {
       _globalMethods.authDialog(context, error.toString());
     } finally {
