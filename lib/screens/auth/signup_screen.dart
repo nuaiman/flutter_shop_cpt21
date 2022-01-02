@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/screens/auth/login_screen.dart';
 import 'package:flutter_shop_cpt21/services/global_methods.dart';
@@ -31,12 +32,14 @@ class _SignupScreenState extends State<SignupScreen> {
   String _fullName = '';
   late int _phoneNumber;
   File? _image;
+  String _url = '';
   FirebaseAuth _auth = FirebaseAuth.instance;
   bool _isLoading = false;
   GlobalMethods _globalMethods = GlobalMethods();
 
   Future _getImage() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final image = await ImagePicker()
+        .pickImage(source: ImageSource.gallery, imageQuality: 30);
 
     setState(() {
       _image = File(image!.path);
@@ -53,28 +56,39 @@ class _SignupScreenState extends State<SignupScreen> {
     var formattedDate =
         '${parsedDate.day}/${parsedDate.month}/${parsedDate.year}';
     if (_isValid) {
-      setState(() {
-        _isLoading = true;
-      });
       _formKey.currentState!.save();
     }
     try {
-      await _auth.createUserWithEmailAndPassword(
-          email: _email.toLowerCase().trim(), password: _password.trim());
+      if (_image == null) {
+        return _globalMethods.authDialog(context, 'Please provide an image');
+      } else {
+        setState(() {
+          _isLoading = true;
+        });
+        final ref = FirebaseStorage.instance
+            .ref()
+            .child('userimages')
+            .child(_fullName + '.jpg');
+        await ref.putFile(_image!);
+        _url = await ref.getDownloadURL();
 
-      final User? user = _auth.currentUser;
-      final _uid = user!.uid;
-      FirebaseFirestore.instance.collection('users').doc(_uid).set({
-        'id': _uid,
-        'name': _fullName,
-        'email': _email,
-        'phoneNumber': _phoneNumber,
-        'imageUrl': '',
-        'joinedDate': formattedDate,
-        // 'createdAt': TimeStamp.now()
-      });
+        await _auth.createUserWithEmailAndPassword(
+            email: _email.toLowerCase().trim(), password: _password.trim());
 
-      Navigator.canPop(context) ? Navigator.pop(context) : null;
+        final User? user = _auth.currentUser;
+        final _uid = user!.uid;
+        FirebaseFirestore.instance.collection('users').doc(_uid).set({
+          'id': _uid,
+          'name': _fullName,
+          'email': _email,
+          'phoneNumber': _phoneNumber,
+          'imageUrl': _url,
+          'joinedDate': formattedDate,
+          // 'createdAt': TimeStamp.now()
+        });
+
+        Navigator.canPop(context) ? Navigator.pop(context) : null;
+      }
     } catch (error) {
       _globalMethods.authDialog(context, error.toString());
     } finally {
