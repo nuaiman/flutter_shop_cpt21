@@ -27,6 +27,7 @@ class _UserScreenState extends State<UserScreen> {
   late String _email;
   late String _joinedAt;
   late int _phoneNumber;
+  late String _userImageUrl;
 
   late ScrollController _scrollController;
 
@@ -36,10 +37,13 @@ class _UserScreenState extends State<UserScreen> {
 
     final DocumentSnapshot userDocs =
         await FirebaseFirestore.instance.collection('users').doc(_uid).get();
-    _name = userDocs.get('name');
-    _email = userDocs.get('email');
-    _joinedAt = userDocs.get('joinedDate');
-    _phoneNumber = userDocs.get('phoneNumber');
+    setState(() {
+      _name = userDocs.get('name');
+      _email = userDocs.get('email');
+      _joinedAt = userDocs.get('joinedDate');
+      _phoneNumber = userDocs.get('phoneNumber');
+      _userImageUrl = userDocs.get('imageUrl');
+    });
   }
 
   @override
@@ -69,22 +73,23 @@ class _UserScreenState extends State<UserScreen> {
                   return FlexibleSpaceBar(
                     centerTitle: true,
                     background: Image.network(
-                      'https://images.pexels.com/photos/1537875/pexels-photo-1537875.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
+                      _userImageUrl ??
+                          'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg',
                       fit: BoxFit.cover,
                     ),
                     title: AnimatedOpacity(
                       duration: const Duration(milliseconds: 300),
                       opacity: top <= 200 ? 1.0 : 0.0,
                       child: Row(
-                        children: const [
-                          SizedBox(
+                        children: [
+                          const SizedBox(
                             width: 12,
                           ),
                           CircleAvatar(
-                            backgroundImage: NetworkImage(
-                                'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'),
+                            backgroundImage: NetworkImage(_userImageUrl ??
+                                'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg'),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 12,
                           ),
                           Text('Fluttercraft')
@@ -203,14 +208,14 @@ class _UserScreenState extends State<UserScreen> {
                         lIcon: Icons.call,
                         color: Colors.green.shade700,
                         title: 'Phone Number',
-                        subTitle: 'Number',
+                        subTitle: _phoneNumber.toString() ?? '',
                         onTap: () {},
                       ),
                       _userListTile(
                         lIcon: Icons.email,
                         color: Colors.yellow.shade700,
                         title: 'Email',
-                        subTitle: 'Email',
+                        subTitle: _email ?? '',
                         onTap: () {},
                       ),
 
@@ -225,7 +230,7 @@ class _UserScreenState extends State<UserScreen> {
                         lIcon: Icons.watch_later,
                         color: Colors.redAccent.shade100,
                         title: 'Join Date',
-                        subTitle: 'date',
+                        subTitle: _joinedAt ?? '',
                       ),
                     ],
                   ),
