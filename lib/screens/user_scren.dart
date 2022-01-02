@@ -22,12 +22,12 @@ class UserScreen extends StatefulWidget {
 class _UserScreenState extends State<UserScreen> {
   double top = 0;
   FirebaseAuth _auth = FirebaseAuth.instance;
-  late String _uid;
-  late String _name;
-  late String _email;
-  late String _joinedAt;
-  late int _phoneNumber;
-  late String _userImageUrl;
+  String _uid = '';
+  String _name = '';
+  String _email = '';
+  String _joinedAt = '';
+  int _phoneNumber = 0;
+  String _userImageUrl = '';
 
   late ScrollController _scrollController;
 
@@ -38,11 +38,11 @@ class _UserScreenState extends State<UserScreen> {
     final DocumentSnapshot userDocs =
         await FirebaseFirestore.instance.collection('users').doc(_uid).get();
     setState(() {
-      _name = userDocs.get('name');
+      _name = user.displayName.toString();
       _email = userDocs.get('email');
       _joinedAt = userDocs.get('joinedDate');
       _phoneNumber = userDocs.get('phoneNumber');
-      _userImageUrl = userDocs.get('imageUrl');
+      _userImageUrl = user.photoURL.toString();
     });
   }
 
@@ -73,8 +73,7 @@ class _UserScreenState extends State<UserScreen> {
                   return FlexibleSpaceBar(
                     centerTitle: true,
                     background: Image.network(
-                      _userImageUrl ??
-                          'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg',
+                      _userImageUrl,
                       fit: BoxFit.cover,
                     ),
                     title: AnimatedOpacity(
@@ -86,13 +85,12 @@ class _UserScreenState extends State<UserScreen> {
                             width: 12,
                           ),
                           CircleAvatar(
-                            backgroundImage: NetworkImage(_userImageUrl ??
-                                'https://cdn1.vectorstock.com/i/thumb-large/62/60/default-avatar-photo-placeholder-profile-image-vector-21666260.jpg'),
+                            backgroundImage: NetworkImage(_userImageUrl),
                           ),
                           const SizedBox(
                             width: 12,
                           ),
-                          Text('Fluttercraft')
+                          Text(_name.toString())
                         ],
                       ),
                     ),
@@ -208,14 +206,14 @@ class _UserScreenState extends State<UserScreen> {
                         lIcon: Icons.call,
                         color: Colors.green.shade700,
                         title: 'Phone Number',
-                        subTitle: _phoneNumber.toString() ?? '',
+                        subTitle: _phoneNumber.toString(),
                         onTap: () {},
                       ),
                       _userListTile(
                         lIcon: Icons.email,
                         color: Colors.yellow.shade700,
                         title: 'Email',
-                        subTitle: _email ?? '',
+                        subTitle: _email,
                         onTap: () {},
                       ),
 
@@ -230,7 +228,7 @@ class _UserScreenState extends State<UserScreen> {
                         lIcon: Icons.watch_later,
                         color: Colors.redAccent.shade100,
                         title: 'Join Date',
-                        subTitle: _joinedAt ?? '',
+                        subTitle: _joinedAt,
                       ),
                     ],
                   ),
