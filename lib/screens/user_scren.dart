@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:badges/badges.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
@@ -20,8 +21,26 @@ class UserScreen extends StatefulWidget {
 
 class _UserScreenState extends State<UserScreen> {
   double top = 0;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  late String _uid;
+  late String _name;
+  late String _email;
+  late String _joinedAt;
+  late int _phoneNumber;
 
   late ScrollController _scrollController;
+
+  void _getData() async {
+    User? user = _auth.currentUser;
+    _uid = user!.uid;
+
+    final DocumentSnapshot userDocs =
+        await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+    _name = userDocs.get('name');
+    _email = userDocs.get('email');
+    _joinedAt = userDocs.get('joinedDate');
+    _phoneNumber = userDocs.get('phoneNumber');
+  }
 
   @override
   void initState() {
@@ -29,6 +48,7 @@ class _UserScreenState extends State<UserScreen> {
     _scrollController.addListener(() {
       setState(() {});
     });
+    _getData();
     super.initState();
   }
 
@@ -168,7 +188,7 @@ class _UserScreenState extends State<UserScreen> {
                         color: Colors.red,
                         title: 'Logout',
                         onTap: () async {
-                          await FirebaseAuth.instance.signOut();
+                          await _auth.signOut();
                           // Navigator.of(context).canPop()
                           //     ? Navigator.pop(context)
                           //     : null;
