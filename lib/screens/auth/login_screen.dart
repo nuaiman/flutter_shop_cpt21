@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/screens/auth/reset_password_screen.dart';
 import 'package:flutter_shop_cpt21/screens/auth/signup_screen.dart';
 import 'package:flutter_shop_cpt21/services/global_methods.dart';
 import 'package:wave/config.dart';
@@ -173,6 +174,17 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
+                    const SizedBox(height: 20),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(ResetPasswordScreen.routeName);
+                      },
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
                   ],
                 ),
               ),

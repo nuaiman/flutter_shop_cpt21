@@ -5,6 +5,7 @@ import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/wishlist.dart';
 import 'package:flutter_shop_cpt21/screens/auth/auth_stream.dart';
 import 'package:flutter_shop_cpt21/screens/auth/login_screen.dart';
+import 'package:flutter_shop_cpt21/screens/auth/reset_password_screen.dart';
 import 'package:flutter_shop_cpt21/screens/auth/signup_screen.dart';
 import 'package:flutter_shop_cpt21/screens/bottom_nav_screen.dart';
 import 'package:flutter_shop_cpt21/screens/cart_screen.dart';
@@ -42,28 +43,29 @@ class MyApp extends StatelessWidget {
       ],
       child: Consumer<ThemeNotifier>(builder: (context, notifier, _) {
         return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: MyAppTheme.myThemes(notifier.isDark, context),
-          home: const AuthStateScreen(),
-          routes: {
-            BottomNavScreen.routeName: (ctx) => const BottomNavScreen(),
-            HomeScreen.routeName: (ctx) => const HomeScreen(),
-            FeedsScreen.routeName: (ctx) => FeedsScreen(),
-            SearchScreen.routeName: (ctx) => const SearchScreen(),
-            CartScreen.routeName: (ctx) => const CartScreen(),
-            UserScreen.routeName: (ctx) => const UserScreen(),
-            BrandsNavRailScreen.routeName: (ctx) => const BrandsNavRailScreen(),
-            WishlistScreen.routeName: (ctx) => const WishlistScreen(),
-            ProductDetailsScreen.routeName: (ctx) =>
-                const ProductDetailsScreen(),
-            CategoriesFeedScreen.routeName: (ctx) =>
-                const CategoriesFeedScreen(),
-            LandingScreen.routeName: (ctx) => const LandingScreen(),
-            LoginScreen.routeName: (ctx) => LoginScreen(),
-            SignupScreen.routeName: (ctx) => SignupScreen(),
-            UploadProductScreen.routeName: (ctx) => UploadProductScreen(),
-          },
-        );
+            debugShowCheckedModeBanner: false,
+            theme: MyAppTheme.myThemes(notifier.isDark, context),
+            home: const AuthStateScreen(),
+            routes: {
+              BottomNavScreen.routeName: (ctx) => const BottomNavScreen(),
+              HomeScreen.routeName: (ctx) => const HomeScreen(),
+              FeedsScreen.routeName: (ctx) => FeedsScreen(),
+              SearchScreen.routeName: (ctx) => const SearchScreen(),
+              CartScreen.routeName: (ctx) => const CartScreen(),
+              UserScreen.routeName: (ctx) => const UserScreen(),
+              BrandsNavRailScreen.routeName: (ctx) =>
+                  const BrandsNavRailScreen(),
+              WishlistScreen.routeName: (ctx) => const WishlistScreen(),
+              ProductDetailsScreen.routeName: (ctx) =>
+                  const ProductDetailsScreen(),
+              CategoriesFeedScreen.routeName: (ctx) =>
+                  const CategoriesFeedScreen(),
+              LandingScreen.routeName: (ctx) => const LandingScreen(),
+              LoginScreen.routeName: (ctx) => LoginScreen(),
+              SignupScreen.routeName: (ctx) => SignupScreen(),
+              UploadProductScreen.routeName: (ctx) => UploadProductScreen(),
+              ResetPasswordScreen.routeName: (ctx) => ResetPasswordScreen(),
+            });
       }),
     );
   }
