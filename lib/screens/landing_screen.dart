@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/screens/auth/login_screen.dart';
@@ -48,11 +49,27 @@ class _LandingScreenState extends State<LandingScreen>
       final googleAuth = await googleAccount.authentication;
       if (googleAuth.accessToken != null && googleAuth.idToken != null) {
         try {
+          var date = DateTime.now().toString();
+          var parsedDate = DateTime.parse(date);
+          var formattedDate =
+              '${parsedDate.day}/${parsedDate.month}/${parsedDate.year}';
           final authResult =
               await _auth.signInWithCredential(GoogleAuthProvider.credential(
             idToken: googleAuth.idToken,
             accessToken: googleAuth.accessToken,
           ));
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(authResult.user!.uid)
+              .set({
+            'id': authResult.user!.uid,
+            'name': authResult.user!.displayName,
+            'email': authResult.user!.email,
+            'phoneNumber': authResult.user!.phoneNumber,
+            'imageUrl': authResult.user!.photoURL,
+            'joinedDate': formattedDate,
+            // 'createdAt': TimeStamp.now()
+          });
         } catch (error) {
           _globalMethods.authDialog(context, error.toString());
         }
