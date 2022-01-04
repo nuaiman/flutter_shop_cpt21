@@ -244,7 +244,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   height: 300,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: 7,
+                    itemCount:
+                        productsList.length < 7 ? productsList.length : 7,
                     itemBuilder: (ctx, i) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
