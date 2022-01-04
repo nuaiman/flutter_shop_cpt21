@@ -35,15 +35,19 @@ class _UserScreenState extends State<UserScreen> {
     User? user = _auth.currentUser;
     _uid = user!.uid;
 
-    final DocumentSnapshot userDocs =
-        await FirebaseFirestore.instance.collection('users').doc(_uid).get();
-    setState(() {
-      _name = user.displayName.toString();
-      _email = userDocs.get('email');
-      _joinedAt = userDocs.get('joinedDate');
-      _phoneNumber = userDocs.get('phoneNumber');
-      _userImageUrl = user.photoURL.toString();
-    });
+    if (user.isAnonymous) {
+      return;
+    } else {
+      final DocumentSnapshot userDocs =
+          await FirebaseFirestore.instance.collection('users').doc(_uid).get();
+      setState(() {
+        _name = user.displayName.toString();
+        _email = userDocs.get('email');
+        _joinedAt = userDocs.get('joinedDate');
+        _phoneNumber = userDocs.get('phoneNumber');
+        _userImageUrl = user.photoURL.toString();
+      });
+    }
   }
 
   @override

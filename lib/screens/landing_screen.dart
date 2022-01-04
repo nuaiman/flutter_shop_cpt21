@@ -21,6 +21,24 @@ class _LandingScreenState extends State<LandingScreen>
   late Animation<double> _animation;
   FirebaseAuth _auth = FirebaseAuth.instance;
   GlobalMethods _globalMethods = GlobalMethods();
+  bool _isLoading = false;
+
+  void _signInAnon() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      await _auth.signInAnonymously().then(
+          (value) => Navigator.canPop(context) ? Navigator.pop(context) : null);
+    } catch (error) {
+      _globalMethods.authDialog(context, error.toString());
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   Future<void> _googleSignIn() async {
     final googleSignIn = GoogleSignIn();
@@ -150,16 +168,17 @@ class _LandingScreenState extends State<LandingScreen>
                   ),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed(BottomNavScreen.routeName);
-                      },
-                      child: const Text(
-                        'Guest',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
+                    child: _isLoading
+                        ? Center(child: CircularProgressIndicator())
+                        : ElevatedButton(
+                            onPressed: () {
+                              _signInAnon();
+                            },
+                            child: const Text(
+                              'Guest',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
                   ),
                   const SizedBox(width: 10),
                 ],
