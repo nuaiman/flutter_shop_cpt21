@@ -1,5 +1,8 @@
 import 'dart:io';
-
+import 'package:uuid/uuid.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_shop_cpt21/services/global_methods.dart';
@@ -30,8 +33,11 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
 
   String? _categoryValue;
   String? _brandValue;
-
+  String _url = '';
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  bool _isLoading = false;
   GlobalMethods _globalMethods = GlobalMethods();
+  var uuid = Uuid();
 
   File? _image;
 
@@ -60,6 +66,44 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
 
     if (_isValid) {
       _formKey.currentState!.save();
+    }
+    try {
+      if (_image == null) {
+        return _globalMethods.authDialog(context, 'Please provide an image');
+      } else {
+        setState(() {
+          _isLoading = true;
+        });
+        final ref = FirebaseStorage.instance
+            .ref()
+            .child('userimages')
+            .child(_productTitle + '.jpg');
+        await ref.putFile(_image!);
+        _url = await ref.getDownloadURL();
+        final User? user = _auth.currentUser;
+        final _uid = user!.uid;
+        final productId = uuid.v4();
+        FirebaseFirestore.instance.collection('products').doc(productId).set({
+          'createdAt': Timestamp.now(),
+          'userId': _uid,
+          'productId': productId,
+          'productTitle': _productTitle,
+          'productPrice': _productPrice,
+          'productDescription': _productDescription,
+          'productCategory': _productCategory,
+          'productImage': _image,
+          'productBrand': _productBrand,
+          'productQuantity': _productQuantity,
+        });
+
+        Navigator.canPop(context) ? Navigator.pop(context) : null;
+      }
+    } catch (error) {
+      _globalMethods.authDialog(context, error.toString());
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -91,10 +135,14 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
         width: double.infinity,
         child: ElevatedButton(
           onPressed: _trySubmit,
-          child: Text(
-            'S U B M i T',
-            style: TextStyle(color: Colors.white),
-          ),
+          child: _isLoading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Text(
+                  'S U B M i T',
+                  style: TextStyle(color: Colors.white),
+                ),
         ),
       ),
       body: SafeArea(
