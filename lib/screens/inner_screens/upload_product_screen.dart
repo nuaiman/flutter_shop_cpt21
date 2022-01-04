@@ -76,14 +76,17 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
         });
         final ref = FirebaseStorage.instance
             .ref()
-            .child('userimages')
+            .child('productImages')
             .child(_productTitle + '.jpg');
         await ref.putFile(_image!);
         _url = await ref.getDownloadURL();
         final User? user = _auth.currentUser;
         final _uid = user!.uid;
         final productId = uuid.v4();
-        FirebaseFirestore.instance.collection('products').doc(productId).set({
+        await FirebaseFirestore.instance
+            .collection('products')
+            .doc(productId)
+            .set({
           'createdAt': Timestamp.now(),
           'userId': _uid,
           'productId': productId,
@@ -91,7 +94,7 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
           'productPrice': _productPrice,
           'productDescription': _productDescription,
           'productCategory': _productCategory,
-          'productImage': _image,
+          'productImage': _url,
           'productBrand': _productBrand,
           'productQuantity': _productQuantity,
         });
@@ -233,7 +236,8 @@ class _UploadProductScreenState extends State<UploadProductScreen> {
                           },
                           keyboardType: TextInputType.number,
                           inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp('r[0-9]')),
+                            // FilteringTextInputFormatter.allow(RegExp('r[0-9]')),
+                            FilteringTextInputFormatter.digitsOnly,
                           ],
                           decoration: InputDecoration(labelText: 'Price \$'),
                           onSaved: (val) {
