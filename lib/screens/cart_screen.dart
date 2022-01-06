@@ -2,16 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/services/global_methods.dart';
+import 'package:flutter_shop_cpt21/services/stripe_payment.dart';
 import 'package:flutter_shop_cpt21/widgets/empty_cart.dart';
 import 'package:flutter_shop_cpt21/widgets/full_cart.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
-
 import 'home_screen.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   static const routeName = '/Cart-screen';
 
   const CartScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  @override
+  void initState() {
+    StripeService.init();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +67,30 @@ class CartScreen extends StatelessWidget {
                 },
               ),
             ),
-            bottomSheet: _bottomCheckoutSectiomn(cartProvider.totalAmount),
+            bottomSheet:
+                _bottomCheckoutSectiomn(context, cartProvider.totalAmount),
           );
   }
 }
 
-Widget _bottomCheckoutSectiomn(double totalAmount) {
+Widget _bottomCheckoutSectiomn(BuildContext context, double totalAmount) {
+  Future<void> payWithCard({required int amount}) async {
+    ProgressDialog dialog = ProgressDialog(context);
+    dialog.style(message: 'Please wait...');
+    await dialog.show();
+    var response = await StripeService.payWithNewCard(
+        amount: amount.toString(), currency: 'USD');
+    await dialog.hide();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(response.message),
+        duration:
+            Duration(milliseconds: response.success == true ? 1200 : 3000),
+      ),
+    );
+  }
+
   return SizedBox(
     width: double.infinity,
     child: Padding(
@@ -78,7 +108,12 @@ Widget _bottomCheckoutSectiomn(double totalAmount) {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {
+              double amountInCents = totalAmount * 1000;
+              int integerAMount = (amountInCents / 10).ceil();
+
+              await payWithCard(amount: integerAMount);
+            },
             child: Text(
               '   C H E C K O U T   ',
               style: const TextStyle(
