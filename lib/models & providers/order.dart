@@ -22,3 +22,37 @@ class Order with ChangeNotifier {
     required this.quantity,
   });
 }
+
+class ProductProvider with ChangeNotifier {
+  List<Order> _orders = [];
+
+  List<Order> getOrders() => _orders;
+
+  Future<void> fetchProducts() async {
+    await FirebaseFirestore.instance
+        .collection('products')
+        .get()
+        .then((QuerySnapshot productSnapshot) {
+      _orders.clear();
+      productSnapshot.docs.forEach((element) {
+        _orders.insert(
+          0,
+          Order(
+            orderId: element.get('orderId'),
+            userId: element.get('userId'),
+            productId: element.get('productId'),
+            title: element.get('title'),
+            price: element.get('price').toString(),
+            imageUrl: element.get('imageUrl'),
+            orderDate: element.get('orderDate'),
+            quantity: element.get('quantity').toString(),
+          ),
+        );
+      });
+    });
+  }
+
+  // Order getById(String prodId) {
+  //   // return _orders.firstWhere((element) => element.id == prodId);
+  // }
+}
