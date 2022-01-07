@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Order with ChangeNotifier {
@@ -29,8 +30,13 @@ class OrderProvider with ChangeNotifier {
   List<Order> get getOrders => _orders;
 
   Future<void> fetchOrders() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    User? user = _auth.currentUser;
+    var _uid = user!.uid;
+
     await FirebaseFirestore.instance
         .collection('orders')
+        .where('userId', isEqualTo: _uid)
         .get()
         .then((QuerySnapshot productSnapshot) {
       _orders.clear();
