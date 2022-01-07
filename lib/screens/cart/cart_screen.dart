@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/services/global_methods.dart';
 import 'package:flutter_shop_cpt21/services/stripe_payment.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 import '../home_screen.dart';
 import 'empty_cart.dart';
 import 'full_cart.dart';
@@ -73,6 +76,10 @@ class _CartScreenState extends State<CartScreen> {
 }
 
 Widget _bottomCheckoutSectiomn(BuildContext context, double totalAmount) {
+  var _uuid = Uuid();
+
+  final cartProvider = Provider.of<CartProvider>(context);
+
   Future<void> payWithCard({required int amount}) async {
     var response = await StripeService.payWithNewCard(
         amount: amount.toString(), currency: 'USD');
@@ -104,10 +111,28 @@ Widget _bottomCheckoutSectiomn(BuildContext context, double totalAmount) {
           ),
           ElevatedButton(
             onPressed: () async {
-              double amountInCents = totalAmount * 1000;
-              int integerAMount = (amountInCents / 10).ceil();
+              // double amountInCents = totalAmount * 1000;
+              // int integerAMount = (amountInCents / 10).ceil();
+              // await payWithCard(amount: integerAMount);
+              User? user = FirebaseAuth.instance.currentUser;
+              final orderId = _uuid.v4();
+              final _uid = user!.uid;
 
-              await payWithCard(amount: integerAMount);
+              cartProvider.cartList.forEach((key, orderValue) async {
+                await FirebaseFirestore.instance
+                    .collection('orders')
+                    .doc(orderId)
+                    .set({
+                  'orderId': orderId,
+                  'userId': _uid,
+                  'productId': orderValue.productId,
+                  'title': orderValue.title,
+                  'price': orderValue.price,
+                  'imageUrl': orderValue.imageUrl,
+                  'quantity': orderValue.quantity,
+                  'orderDate': Timestamp.now(),
+                });
+              });
             },
             child: Text(
               '   C H E C K O U T   ',

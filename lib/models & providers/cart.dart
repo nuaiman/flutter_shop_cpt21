@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Cart with ChangeNotifier {
   final String cartId;
+  final String productId;
   final String title;
   final String imageUrl;
   final double price;
@@ -9,6 +10,7 @@ class Cart with ChangeNotifier {
 
   Cart({
     required this.cartId,
+    required this.productId,
     required this.title,
     required this.imageUrl,
     required this.price,
@@ -34,6 +36,7 @@ class CartProvider with ChangeNotifier {
           pId,
           (value) => Cart(
                 cartId: value.cartId,
+                productId: value.productId,
                 title: value.title,
                 imageUrl: value.imageUrl,
                 price: value.price,
@@ -44,6 +47,7 @@ class CartProvider with ChangeNotifier {
         pId,
         () => Cart(
             cartId: DateTime.now().toIso8601String(),
+            productId: pId,
             title: title,
             imageUrl: imageUrl,
             price: price,
@@ -60,6 +64,7 @@ class CartProvider with ChangeNotifier {
           pId,
           (value) => Cart(
                 cartId: value.cartId,
+                productId: value.productId,
                 title: value.title,
                 imageUrl: value.imageUrl,
                 price: value.price,
