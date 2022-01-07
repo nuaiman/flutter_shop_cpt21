@@ -23,14 +23,14 @@ class Order with ChangeNotifier {
   });
 }
 
-class ProductProvider with ChangeNotifier {
+class OrderProvider with ChangeNotifier {
   List<Order> _orders = [];
 
-  List<Order> getOrders() => _orders;
+  List<Order> get getOrders => _orders;
 
-  Future<void> fetchProducts() async {
+  Future<void> fetchOrders() async {
     await FirebaseFirestore.instance
-        .collection('products')
+        .collection('orders')
         .get()
         .then((QuerySnapshot productSnapshot) {
       _orders.clear();

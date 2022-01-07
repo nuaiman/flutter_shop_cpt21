@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
+import 'package:flutter_shop_cpt21/models%20&%20providers/order.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/wishlist.dart';
 import 'package:flutter_shop_cpt21/screens/auth/auth_stream.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (ctx) => ProductProvider()),
         ChangeNotifierProvider(create: (ctx) => CartProvider()),
         ChangeNotifierProvider(create: (ctx) => WishlistProvider()),
+        ChangeNotifierProvider(create: (ctx) => OrderProvider()),
       ],
       child: Consumer<ThemeNotifier>(builder: (context, notifier, _) {
         return MaterialApp(

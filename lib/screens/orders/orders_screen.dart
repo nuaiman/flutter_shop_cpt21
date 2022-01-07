@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop_cpt21/models%20&%20providers/order.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/services/global_methods.dart';
 import 'package:flutter_shop_cpt21/services/stripe_payment.dart';
@@ -19,7 +20,6 @@ class OrderScreen extends StatefulWidget {
 class _OrderScreenState extends State<OrderScreen> {
   @override
   void initState() {
-    StripeService.init();
     super.initState();
   }
 
@@ -28,7 +28,8 @@ class _OrderScreenState extends State<OrderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return !_isOrder
+    final orderProvider = Provider.of<OrderProvider>(context);
+    return _isOrder
         ? const Scaffold(
             body: EmptyOrder(),
           )
@@ -48,15 +49,22 @@ class _OrderScreenState extends State<OrderScreen> {
                 ),
               ],
             ),
-            body: Container(
-              margin: const EdgeInsets.only(bottom: 60),
-              child: ListView.builder(
-                itemCount: 6,
-                itemBuilder: (ctx, i) {
-                  return FullOrder();
-                },
-              ),
-            ),
+            body: FutureBuilder(
+                future: orderProvider.fetchOrders(),
+                builder: (context, snapshot) {
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 60),
+                    child: ListView.builder(
+                      itemCount: orderProvider.getOrders.length,
+                      itemBuilder: (ctx, i) {
+                        return ChangeNotifierProvider.value(
+                          value: orderProvider.getOrders[i],
+                          child: FullOrder(),
+                        );
+                      },
+                    ),
+                  );
+                }),
           );
   }
 }
