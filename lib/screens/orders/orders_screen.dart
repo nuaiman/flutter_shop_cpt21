@@ -23,36 +23,35 @@ class _OrderScreenState extends State<OrderScreen> {
     super.initState();
   }
 
-  bool _isOrder = false;
   GlobalMethods globalMethods = GlobalMethods();
 
   @override
   Widget build(BuildContext context) {
     final orderProvider = Provider.of<OrderProvider>(context);
-    return _isOrder
-        ? const Scaffold(
-            body: EmptyOrder(),
-          )
-        : Scaffold(
-            appBar: AppBar(
-              title: Text('Order ()'),
-              actions: [
-                IconButton(
-                  onPressed: () async {
-                    await globalMethods.showDialogue(
-                      context,
-                      () {},
-                      // () => OrderProvider.clearOrder(),
-                    );
-                  },
-                  icon: const Icon(Icons.delete),
-                ),
-              ],
-            ),
-            body: FutureBuilder(
-                future: orderProvider.fetchOrders(),
-                builder: (context, snapshot) {
-                  return Container(
+    return FutureBuilder(
+        future: orderProvider.fetchOrders(),
+        builder: (context, snapshot) {
+          return orderProvider.getOrders.isEmpty
+              ? const Scaffold(
+                  body: EmptyOrder(),
+                )
+              : Scaffold(
+                  appBar: AppBar(
+                    title: Text('Order (${orderProvider.getOrders.length})'),
+                    actions: [
+                      IconButton(
+                        onPressed: () async {
+                          await globalMethods.showDialogue(
+                            context,
+                            () {},
+                            // () => OrderProvider.clearOrder(),
+                          );
+                        },
+                        icon: const Icon(Icons.delete),
+                      ),
+                    ],
+                  ),
+                  body: Container(
                     margin: const EdgeInsets.only(bottom: 60),
                     child: ListView.builder(
                       itemCount: orderProvider.getOrders.length,
@@ -63,8 +62,8 @@ class _OrderScreenState extends State<OrderScreen> {
                         );
                       },
                     ),
-                  );
-                }),
-          );
+                  ),
+                );
+        });
   }
 }
