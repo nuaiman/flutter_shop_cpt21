@@ -5,6 +5,7 @@ import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/services/global_methods.dart';
 import 'package:flutter_shop_cpt21/services/stripe_payment.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 import '../home_screen.dart';
@@ -80,15 +81,17 @@ Widget _bottomCheckoutSectiomn(BuildContext context, double totalAmount) {
 
   final cartProvider = Provider.of<CartProvider>(context);
 
+  StripeTransactionResponse? response;
+
   Future<void> payWithCard({required int amount}) async {
-    var response = await StripeService.payWithNewCard(
+    response = await StripeService.payWithNewCard(
         amount: amount.toString(), currency: 'USD');
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(response.message),
+        content: Text(response!.message),
         duration:
-            Duration(milliseconds: response.success == true ? 1200 : 3000),
+            Duration(milliseconds: response!.success == true ? 1200 : 3000),
       ),
     );
   }
@@ -111,31 +114,32 @@ Widget _bottomCheckoutSectiomn(BuildContext context, double totalAmount) {
           ),
           ElevatedButton(
             onPressed: () async {
-              // double amountInCents = totalAmount * 1000;
-              // int integerAMount = (amountInCents / 10).ceil();
-              // await payWithCard(amount: integerAMount);
-              User? user = FirebaseAuth.instance.currentUser;
+              double amountInCents = totalAmount * 1000;
+              int integerAMount = (amountInCents / 10).ceil();
+              await payWithCard(amount: integerAMount);
 
-              final _uid = user!.uid;
-
-              cartProvider.cartList.forEach((key, orderValue) async {
-                final orderId = _uuid.v4();
-                try {
-                  await FirebaseFirestore.instance
-                      .collection('orders')
-                      .doc(orderId)
-                      .set({
-                    'orderId': orderId,
-                    'userId': _uid,
-                    'productId': orderValue.productId,
-                    'title': orderValue.title,
-                    'price': orderValue.price,
-                    'imageUrl': orderValue.imageUrl,
-                    'quantity': orderValue.quantity,
-                    'orderDate': Timestamp.now(),
-                  });
-                } catch (error) {}
-              });
+              if (response!.success == true) {
+                User? user = FirebaseAuth.instance.currentUser;
+                final _uid = user!.uid;
+                cartProvider.cartList.forEach((key, orderValue) async {
+                  final orderId = _uuid.v4();
+                  try {
+                    await FirebaseFirestore.instance
+                        .collection('orders')
+                        .doc(orderId)
+                        .set({
+                      'orderId': orderId,
+                      'userId': _uid,
+                      'productId': orderValue.productId,
+                      'title': orderValue.title,
+                      'price': orderValue.price,
+                      'imageUrl': orderValue.imageUrl,
+                      'quantity': orderValue.quantity,
+                      'orderDate': Timestamp.now(),
+                    });
+                  } catch (error) {}
+                });
+              }
             },
             child: Text(
               '   C H E C K O U T   ',
