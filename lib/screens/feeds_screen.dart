@@ -8,10 +8,20 @@ import 'package:flutter_shop_cpt21/widgets/feeds_product.dart';
 import 'package:provider/provider.dart';
 import 'cart/cart_screen.dart';
 
-class FeedsScreen extends StatelessWidget {
+class FeedsScreen extends StatefulWidget {
   static const routeName = '/Feeds-screen';
 
   FeedsScreen({Key? key}) : super(key: key);
+
+  @override
+  State<FeedsScreen> createState() => _FeedsScreenState();
+}
+
+class _FeedsScreenState extends State<FeedsScreen> {
+  Future<void> _getProductsOnrefresh() async {
+    await Provider.of<ProductProvider>(context, listen: false).fetchProducts();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,22 +68,25 @@ class FeedsScreen extends StatelessWidget {
           }),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.builder(
-          itemCount: productsList.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 2 / 3,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
+      body: RefreshIndicator(
+        onRefresh: _getProductsOnrefresh,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GridView.builder(
+            itemCount: productsList.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 2 / 3,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+            ),
+            itemBuilder: (ctx, i) {
+              return ChangeNotifierProvider.value(
+                value: productsList[i],
+                child: FeedsProduct(),
+              );
+            },
           ),
-          itemBuilder: (ctx, i) {
-            return ChangeNotifierProvider.value(
-              value: productsList[i],
-              child: FeedsProduct(),
-            );
-          },
         ),
       ),
     );
