@@ -115,23 +115,26 @@ Widget _bottomCheckoutSectiomn(BuildContext context, double totalAmount) {
               // int integerAMount = (amountInCents / 10).ceil();
               // await payWithCard(amount: integerAMount);
               User? user = FirebaseAuth.instance.currentUser;
-              final orderId = _uuid.v4();
+
               final _uid = user!.uid;
 
               cartProvider.cartList.forEach((key, orderValue) async {
-                await FirebaseFirestore.instance
-                    .collection('orders')
-                    .doc(orderId)
-                    .set({
-                  'orderId': orderId,
-                  'userId': _uid,
-                  'productId': orderValue.productId,
-                  'title': orderValue.title,
-                  'price': orderValue.price,
-                  'imageUrl': orderValue.imageUrl,
-                  'quantity': orderValue.quantity,
-                  'orderDate': Timestamp.now(),
-                });
+                final orderId = _uuid.v4();
+                try {
+                  await FirebaseFirestore.instance
+                      .collection('orders')
+                      .doc(orderId)
+                      .set({
+                    'orderId': orderId,
+                    'userId': _uid,
+                    'productId': orderValue.productId,
+                    'title': orderValue.title,
+                    'price': orderValue.price,
+                    'imageUrl': orderValue.imageUrl,
+                    'quantity': orderValue.quantity,
+                    'orderDate': Timestamp.now(),
+                  });
+                } catch (error) {}
               });
             },
             child: Text(
