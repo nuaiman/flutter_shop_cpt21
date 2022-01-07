@@ -56,6 +56,7 @@ class OrderProvider with ChangeNotifier {
         );
       });
     });
+    notifyListeners();
   }
 
   // Order getById(String prodId) {

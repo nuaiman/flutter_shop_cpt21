@@ -38,18 +38,6 @@ class _OrderScreenState extends State<OrderScreen> {
               : Scaffold(
                   appBar: AppBar(
                     title: Text('Order (${orderProvider.getOrders.length})'),
-                    actions: [
-                      IconButton(
-                        onPressed: () async {
-                          await globalMethods.showDialogue(
-                            context,
-                            () {},
-                            // () => OrderProvider.clearOrder(),
-                          );
-                        },
-                        icon: const Icon(Icons.delete),
-                      ),
-                    ],
                   ),
                   body: Container(
                     margin: const EdgeInsets.only(bottom: 60),

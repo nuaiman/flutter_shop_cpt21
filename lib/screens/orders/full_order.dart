@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/order.dart';
 import 'package:flutter_shop_cpt21/screens/inner_screens/product_details_screen.dart';
@@ -68,7 +69,10 @@ class _FullOrderState extends State<FullOrder> {
                           padding: const EdgeInsets.only(right: 8.0),
                           child: InkWell(
                             onTap: () {
-                              // OrderProvider.removeItem(widget.pId);
+                              FirebaseFirestore.instance
+                                  .collection('orders')
+                                  .doc(order.orderId)
+                                  .delete();
                             },
                             child: const Icon(
                               Icons.close,
