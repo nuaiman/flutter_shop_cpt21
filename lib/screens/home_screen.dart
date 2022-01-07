@@ -8,7 +8,7 @@ import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/wishlist.dart';
 import 'package:flutter_shop_cpt21/screens/feeds_screen.dart';
 import 'package:flutter_shop_cpt21/screens/inner_screens/brands_nav_rail.dart';
-import 'package:flutter_shop_cpt21/screens/wishlist_screen.dart';
+import 'package:flutter_shop_cpt21/screens/wishlist/wishlist_screen.dart';
 import 'package:flutter_shop_cpt21/widgets/back_layer.dart';
 import 'package:flutter_shop_cpt21/widgets/category.dart';
 import 'package:flutter_shop_cpt21/widgets/popular_propducts.dart';

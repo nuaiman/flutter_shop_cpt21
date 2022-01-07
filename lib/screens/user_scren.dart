@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/my_theme.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/wishlist.dart';
-import 'package:flutter_shop_cpt21/screens/cart_screen.dart';
-import 'package:flutter_shop_cpt21/screens/wishlist_screen.dart';
+import 'package:flutter_shop_cpt21/screens/cart/cart_screen.dart';
+import 'package:flutter_shop_cpt21/screens/orders/orders_screen.dart';
+import 'package:flutter_shop_cpt21/screens/wishlist/wishlist_screen.dart';
 import 'package:provider/provider.dart';
 
 class UserScreen extends StatefulWidget {
@@ -162,6 +163,34 @@ class _UserScreenState extends State<UserScreen> {
                               ),
                             ),
                             title: Text('Wishlist'),
+                            trailing: Icon(Icons.arrow_forward_ios),
+                          ),
+                        );
+                      }),
+
+                      Consumer<WishlistProvider>(builder: (context, wp, _) {
+                        return Card(
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed(OrderScreen.routeName);
+                            },
+                            leading: Badge(
+                              toAnimate: true,
+                              animationType: BadgeAnimationType.slide,
+                              position: BadgePosition.topEnd(top: 0, end: 0),
+                              badgeColor: Colors.indigo,
+                              badgeContent: Text(
+                                wp.wishlistList.length.toString(),
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              child: Icon(
+                                Icons.shopping_bag,
+                                size: 40,
+                                color: Colors.greenAccent,
+                              ),
+                            ),
+                            title: Text('Orders'),
                             trailing: Icon(Icons.arrow_forward_ios),
                           ),
                         );

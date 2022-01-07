@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop_cpt21/screens/cart_screen.dart';
+import 'package:flutter_shop_cpt21/screens/cart/cart_screen.dart';
 import 'package:flutter_shop_cpt21/screens/feeds_screen.dart';
 import 'package:flutter_shop_cpt21/screens/home_screen.dart';
 import 'package:flutter_shop_cpt21/screens/search_screen.dart';

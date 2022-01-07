@@ -3,11 +3,10 @@ import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/services/global_methods.dart';
 import 'package:flutter_shop_cpt21/services/stripe_payment.dart';
-import 'package:flutter_shop_cpt21/widgets/empty_cart.dart';
-import 'package:flutter_shop_cpt21/widgets/full_cart.dart';
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
-import 'home_screen.dart';
+import '../home_screen.dart';
+import 'empty_cart.dart';
+import 'full_cart.dart';
 
 class CartScreen extends StatefulWidget {
   static const routeName = '/Cart-screen';
@@ -75,12 +74,8 @@ class _CartScreenState extends State<CartScreen> {
 
 Widget _bottomCheckoutSectiomn(BuildContext context, double totalAmount) {
   Future<void> payWithCard({required int amount}) async {
-    ProgressDialog dialog = ProgressDialog(context);
-    dialog.style(message: 'Please wait...');
-    await dialog.show();
     var response = await StripeService.payWithNewCard(
         amount: amount.toString(), currency: 'USD');
-    await dialog.hide();
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

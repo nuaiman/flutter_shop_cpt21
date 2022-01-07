@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/wishlist.dart';
 import 'package:flutter_shop_cpt21/services/global_methods.dart';
-import 'package:flutter_shop_cpt21/widgets/empty_wishlist.dart';
-import 'package:flutter_shop_cpt21/widgets/full_wishlist.dart';
 import 'package:provider/provider.dart';
+
+import 'empty_wishlist.dart';
+import 'full_wishlist.dart';
 
 class WishlistScreen extends StatelessWidget {
   static const routeName = '/wishlist-screen';

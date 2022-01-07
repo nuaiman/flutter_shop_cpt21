@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/cart.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/product.dart';
 import 'package:flutter_shop_cpt21/models%20&%20providers/wishlist.dart';
-import 'package:flutter_shop_cpt21/screens/cart_screen.dart';
+import 'package:flutter_shop_cpt21/screens/cart/cart_screen.dart';
 import 'package:flutter_shop_cpt21/widgets/feeds_product.dart';
 import 'package:provider/provider.dart';
 
-import '../wishlist_screen.dart';
+import '../wishlist/wishlist_screen.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   static const routeName = '/product-details-screen';
